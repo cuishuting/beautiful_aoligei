@@ -1,0 +1,5 @@
+<!--pages/GD_getPhoto/GD_getPhoto.wxml-->
+<camera hidden="{{takePhotoOrNot}}" mode="normal" device-position="front" flash="auto" binderror="error" style="width: 100%; height:400px;"></camera>
+<button bindtap="takePhoto">点击拍照</button>
+<button bindtap="upLoadImage">点击上传已有图片</button>
+<image src="{{imagePath}}"></image>
