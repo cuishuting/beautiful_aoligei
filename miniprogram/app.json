@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/GD_getPhoto/GD_getPhoto"
+    
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
