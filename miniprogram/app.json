@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/day/day",
     "pages/index/index",
     "pages/GD_getPhoto/GD_getPhoto"
   ],
