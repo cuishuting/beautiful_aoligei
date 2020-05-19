@@ -1,6 +1,10 @@
 <!--index.wxml-->
 <view class="container">
+<<<<<<< HEAD
 
+=======
+<button bindtap="jumpToGetPhoto">点击跳转到get_photo页面</button>
+>>>>>>> 1cca836442451701bf192c8fc57bf2063ccb9e04
   <!-- 用户 openid -->
   <view class="userinfo">
     <button 

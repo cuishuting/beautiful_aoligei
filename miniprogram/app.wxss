@@ -1,4 +1,9 @@
 /**app.wxss**/
+<<<<<<< HEAD
+=======
+@import "colorui/main.wxss";
+@import "colorui/icon.wxss";
+>>>>>>> 1cca836442451701bf192c8fc57bf2063ccb9e04
 .container {
   display: flex;
   flex-direction: column;

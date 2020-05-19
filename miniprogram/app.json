@@ -1,5 +1,9 @@
 {
   "pages": [
+<<<<<<< HEAD
+=======
+    "pages/day/day",
+>>>>>>> 1cca836442451701bf192c8fc57bf2063ccb9e04
     "pages/index/index",
     "pages/GD_getPhoto/GD_getPhoto"
   ],

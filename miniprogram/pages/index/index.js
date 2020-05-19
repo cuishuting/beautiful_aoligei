@@ -35,7 +35,15 @@ Page({
       }
     })
   },
+<<<<<<< HEAD
 
+=======
+jumpToGetPhoto: function() {
+  wx.navigateTo({
+    url: '../GD_getPhoto/GD_getPhoto',
+  })
+},
+>>>>>>> 1cca836442451701bf192c8fc57bf2063ccb9e04
   onGetUserInfo: function(e) {
     if (!this.data.logged && e.detail.userInfo) {
       this.setData({
