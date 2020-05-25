@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/day/day",
     "pages/index/index",
+    "pages/day/day",
     "pages/GD_getPhoto/GD_getPhoto"
   ],
   "window": {
