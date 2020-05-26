@@ -9,6 +9,7 @@ Page({
     takePhotoOrNot:true,
     gettingPhoto: true,
     base64_photo: "",
+    TestReport: true,
   },
 
   /**
@@ -47,9 +48,43 @@ Page({
               'image_base64' : base64
             },
             success: (result) => {
-              console.log(result.data);
+              var res = result.data;//res是JSON格式
+              var res_obj = JSON.parse(res); //res_obj是object格式
+              console.log(res_obj);
+              that.setData({
+                TestReport: false,
+              });
+              var skinInfo = {};
+              var skin_report = res_obj.result;
+              skinInfo = {
+                left_eyelid: skin_report.left_eyelids.value, //左眼双眼皮
+                right_eyelid: skin_report.right_eyelids.value, //右眼双眼皮
+                eye_pouch: skin_report.eye_pouch.value, //有无眼袋
+                dark_circle: skin_report.dark_circle.value, //有无黑眼圈
+                crows_feet: skin_report.crows_feet.value, //有无鱼尾纹
+                eye_finelines: skin_report.eye_finelines.value, //眼部细纹
+                skin_type: {
+                  skin_type: skin_report.skin_type.skin_type,
+                  details: {
+                    '0': {confidence: skin_report.skin_type.details['0'].confidence, value: skin_report.skin_type.details['0'].value},
+                    '1': {confidence: skin_report.skin_type.details['1'].confidence, value: skin_report.skin_type.details['1'].value},
+                    '2': {confidence: skin_report.skin_type.details['2'].confidence, value: skin_report.skin_type.details['2'].value},
+                    '3': {confidence: skin_report.skin_type.details['3'].confidence, value: skin_report.skin_type.details['3'].value},
+                  }
+                }, //肤质类型
+                acne: {
+                  value: skin_report.acne.value,
+                  acne_level: skin_report.acne.confidence
+                }, //痘痘以及痘痘的等级情况
+                pores_forehead: skin_report.pores_forehead.value, //前额毛孔情况
+                pores_jaw: skin_report.pores_jaw.value, //下巴上的毛孔情况
+                pores_left_cheek: skin_report.pores_left_cheek.value, //左脸毛孔情况
+                pores_right_cheek: skin_report.pores_right_cheek.value, //右脸毛孔情况
+                skin_spot: skin_report.skin_spot.value, //有无斑点
+              };
+              wx.setStorageSync("face_data", skinInfo);
             },
-          })
+          });
         }
         else {
           console.log("图片尺寸大于2m");
@@ -57,6 +92,11 @@ Page({
         
       }
     });
+  },
+  jumpToTestReport: function() {
+    wx.navigateTo({
+      url: '../GD_Report/GD_Report',
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

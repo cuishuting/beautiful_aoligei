@@ -1,4 +1,4 @@
 <!--pages/GD_getPhoto/GD_getPhoto.wxml-->
 <button bindtap="upLoadImage">点击获取测试皮肤</button>
-<camera hidden="{{takePhotoOrNot}}" mode="normal" device-position="front" flash="auto" binderror="error" style="width: 100%; height:400px;"></camera>
 <image src="{{imagePath}}"></image>
+<button hidden="{{TestReport}}" bindtap="jumpToTestReport">点击查看测试报告</button>
