@@ -1,8 +1,10 @@
 {
   "pages": [
+    "pages/GD_plan/GD_plan",
     "pages/index/index",
-    "pages/day/day",
-    "pages/GD_getPhoto/GD_getPhoto"
+    "pages/GD_getPhoto/GD_getPhoto",
+    "pages/day/day"
+   
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
