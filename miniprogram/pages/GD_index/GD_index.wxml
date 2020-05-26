@@ -1,0 +1,6 @@
+<view>
+  <button bindtap="jumptoplan">GD_plan</button>
+  <button bindtap="jumptogetphoto">GD_getphoto</button>
+  <button bindtap="jumptorecommend">GD_recommend</button>
+  <button bindtap="jumptoreport">GD_report</button>
+</view>

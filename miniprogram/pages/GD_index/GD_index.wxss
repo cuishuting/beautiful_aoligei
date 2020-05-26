@@ -1,0 +1,4 @@
+/* miniprogram/pages/GD_index/GD_index.wxss */
+page{
+  background-color: white;
+}
