@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/day/day",
-    "pages/GD_getPhoto/GD_getPhoto"
+    "pages/GD_getPhoto/GD_getPhoto",
+    "pages/GD_plan/GD_plan"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

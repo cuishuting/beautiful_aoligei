@@ -2,4 +2,3 @@
 <button bindtap="upLoadImage">点击获取测试皮肤</button>
 <camera hidden="{{takePhotoOrNot}}" mode="normal" device-position="front" flash="auto" binderror="error" style="width: 100%; height:400px;"></camera>
 <image src="{{imagePath}}"></image>
-<view>{{base64_photo}}</view>
