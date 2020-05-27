@@ -44,7 +44,7 @@
 </view>
 
 <view class="item-box">
-	<view class="items">
+	<view class="items" >
 		<checkbox-group bindchange="checkboxChange">
 			<view wx:for="{{list}}" wx:key="{{index}}" class="item">
 				<view bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.txtStyle}}" class="inner txt text">
