@@ -1,2 +1,7 @@
 <!--miniprogram/pages/GD_Report/GD_Report.wxml-->
-
+<view>痘痘严重程度{{acne_level}}</view>
+<view>肤质类型:{{skin_type}}</view>
+<view>0肤质的可靠性：{{skin_0_confidence}}</view>
+<view>1肤质的可靠性：{{skin_1_confidence}}</view>
+<view>2肤质的可靠性：{{skin_2_confidence}}</view>
+<view>3肤质的可靠性：{{skin_3_confidence}}</view>

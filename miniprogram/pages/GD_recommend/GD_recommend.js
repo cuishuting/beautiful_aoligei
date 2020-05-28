@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    face_data: {},
     TabCur: 0,
     list:[],
     list0: [
@@ -38,7 +39,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var recommend_ref_data = wx.getStorageSync('face_data');
+    console.log("%%%%%%%%%");
+    console.log(recommend_ref_data);
+    console.log("%%%%%%%5");
+    var that = this;
+    that.setData({
+      face_data: recommend_ref_data,
+    });
+    console.log("^^^^^^^^");
+    console.log(this.face_data);
+    console.log("^^^^^^^^^");
   },
 
   /**
