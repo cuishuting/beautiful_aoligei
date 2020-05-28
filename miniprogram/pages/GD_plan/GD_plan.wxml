@@ -1,6 +1,6 @@
 <!--miniprogram/pages/GD_plan/GD_plan.wxml-->
-<scroll-view scroll-x class="bg-white nav text-center fixed" style="top:{{CustomBar}}px">
-  <view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{tabNav}}" wx:key bindtap='tabSelect' data-id="{{index}}">
+<scroll-view scroll-x class="bg-white nav text-center">
+ <view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{tabNav}}" wx:key bindtap='tabSelect' data-id="{{index}}">
     {{tabNav[index]}}
   </view>
 </scroll-view>
@@ -43,8 +43,9 @@
 	</view>
 </view>
 
+
 <view class="item-box">
-	<view class="items" >
+	<view class="items">
 		<checkbox-group bindchange="checkboxChange">
 			<view wx:for="{{list}}" wx:key="{{index}}" class="item">
 				<view bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.txtStyle}}" class="inner txt text">
@@ -56,13 +57,9 @@
 	</view>
 </view>
 </block>
-
-
 <block wx:if="{{TabCur==1}}">
 
 </block>
-
-
 <block wx:if="{{TabCur==2}}">
 
 </block> 

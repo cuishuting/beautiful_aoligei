@@ -1,7 +1,4 @@
 /* miniprogram/pages/GD_plan/GD_plan.wxss */
-page{
-  padding-top: 90rpx;
-}
 .size{
   font-size:large;
 }
@@ -12,7 +9,7 @@ page{
   position:absolute;
   right: 8px;
    left: auto;
-   top: 34px;
+   top: 35px;
 }
 .xl{
   font-size: xx-large;
@@ -38,7 +35,7 @@ view{
   height: 120rpx;
   line-height: 120rpx;
   overflow: hidden;
-
+   
 }
 .item:last-child{
   border-bottom: 2rpx solid#eee;
