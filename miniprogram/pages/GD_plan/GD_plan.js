@@ -7,7 +7,8 @@ Page({
   data: {
     tabNav:['今日待办','周计划','月计划'],
     delBtnWidth: 180, //删除按钮宽度单位（rpx）;
-    text:'',
+    //日计划数据
+    day_text:'',
     TabCur:'',
     list: [
       {
@@ -22,6 +23,31 @@ Page({
         txtStyle: "",
         txt: "生物作业"
       },
+    ],
+    //月计划数据
+    isclick:false,
+    year: 0,
+    month: 0,
+    mydate: ['日', '一', '二', '三', '四', '五', '六'],
+    date: "2020-05-01",
+    adddate:'',
+    dateArr: [],
+    isToday: 0,
+    isTodayWeek: false,
+    todayIndex: 0,
+    showDialog: false,
+    text: '',
+    usertext: "还没有添加内容",
+    editTrue: false,
+    info: [
+      {
+        id: 2020526,
+        text: "英语考试"
+      },
+      {
+        id: 2020531,
+        text: "小红花"
+      }
     ]
   },
   checkboxChange: function (e) {
@@ -64,7 +90,7 @@ Page({
       console.log(that.data.list)
       that.setData({
         list: that.data.list,
-        text:''
+        day_text:''
       });
     }
   },
@@ -180,6 +206,7 @@ Page({
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     this.initEleWidth();
+    
   },
 
   /**
