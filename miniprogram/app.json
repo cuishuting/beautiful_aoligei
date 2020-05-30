@@ -6,7 +6,8 @@
     "pages/GD_Report/GD_Report",
     "pages/GD_recommend/GD_recommend",
     "pages/GD_plan/GD_plan",
-    "pages/day/day"
+    "pages/day/day",
+    "pages/calendar/calendar"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
