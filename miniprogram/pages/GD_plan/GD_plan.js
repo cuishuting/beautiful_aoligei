@@ -48,7 +48,8 @@ Page({
         id: 2020531,
         text: "小红花"
       }
-    ]
+    ],
+    time: '12:01',
   },
   checkboxChange: function (e) {
     var temp1 = e.detail.value
@@ -428,5 +429,10 @@ DateChange(e) {
         editTrue: false,
       })
     }
-  }
+  },
+  TimeChange(e) {
+    this.setData({
+      time: e.detail.value
+    })
+  },
 })
