@@ -48,7 +48,7 @@ Page({
         id: 2020531,
         text: "小红花"
       }
-    ]
+    ],
   },
   checkboxChange: function (e) {
     var temp1 = e.detail.value

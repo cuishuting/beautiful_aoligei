@@ -43,7 +43,6 @@
 	</view>
 </view>
 
-
 <view class="item-box">
 	<view class="items">
 		<checkbox-group bindchange="checkboxChange">
@@ -57,11 +56,29 @@
 	</view>
 </view>
 </block>
+
+
+
 <block wx:if="{{TabCur==1}}">
+  
+    <view class="top">
+      <view wx:for="{{7}}" class="top-text" wx:key="{{index}}">
+        <view class='top-text'>
+          <view>{{index+1}}</view>
+        </view>
+      </view>
+    </view>
 
-
+  <view wx:for="{{24}}" wx:key="{{time_index}}">
+	  <view class='left_time'>
+		  <view>{{index}}</view>
+		</view>
+	</view>
 
 </block>
+
+
+
 <block wx:if="{{TabCur==2}}">
 <view class='wrap'>
 	<view>

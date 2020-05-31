@@ -1,4 +1,7 @@
 /* miniprogram/pages/GD_plan/GD_plan.wxss */
+page{
+  background-color: white;
+}
 .todaytodo_size{
   font-size:large;
 }
@@ -199,4 +202,39 @@ view{
   background-color: rgb(191, 191, 191);
   margin: 0 auto;
   color: #22A7F6;
+}
+
+/*week*/
+.top {
+  background-color: #94b9ce;
+  color: #333;
+  height: 100rpx;
+  font-size: 28rpx;
+  margin-left: 8%;
+}
+
+.top-text {
+  float: left;
+  width: 14.2%;
+  font-size: 9pt;
+  align-items: center;
+}
+
+.top-text view {
+  line-height: 50rpx;
+  display: block;
+  margin-top: 15rpx;
+  padding-left: 40%;
+  font-size: 50rpx;
+  color: rgb(252, 252, 252);
+}
+
+.left_time{
+  line-height:100rpx;
+  background-color: white;
+  color:black;
+  font-size: 40rpx;
+  width: 8%;
+  text-align: center;
+  
 }
