@@ -11,12 +11,12 @@
 			<view class="cu-tag bg-blue ">
 				<text class="cuIcon-likefill"></text>
 			</view>
-			<view class="cu-tag line-blue size">
+			<view class="cu-tag line-blue todaytodo_size">
 				今日事今日毕
 			</view>
 		</view>
 		<view bindtap="showModal" data-target="DialogModal1">
-			<text class="cuIcon-add lg padding xl text-blue position">
+			<text class="cuIcon-add lg padding xl text-blue add_dayplan_position">
 			</text>
 		</view>
 		<view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
@@ -43,7 +43,6 @@
 	</view>
 </view>
 
-
 <view class="item-box">
 	<view class="items">
 		<checkbox-group bindchange="checkboxChange">
@@ -57,11 +56,155 @@
 	</view>
 </view>
 </block>
+
+
+
 <block wx:if="{{TabCur==1}}">
+  
+  <view class="flex padding justify-center">
+	  <view class="margin-xs radius">
+		  <view class="cu-capsule round">
+			  <view class="cu-tag bg-blue ">
+				  <text class="cuIcon-likefill"></text>
+			  </view>
+			  <view>
+				  <text class="cu-tag line-blue todaytodo_size">开启规律生活</text>
+				</view>
+        <view bindtap="showModal" data-target="DialogModal2">
+			    <text class="cuIcon-add lg padding xl text-blue add_dayplan_position">
+			    </text>
+		    </view>
+		  </view>
+  	</view>
+  </view>
 
+  <view class="week-top">
+    <view wx:for="{{7}}" class="top-text" wx:key="{{index}}">
+      <view class='week-top-text'>
+        <view>{{index+1}}</view>
+      </view>
+    </view>
+  </view>
 
-<!--月计划-->
+  <view wx:for="{{24}}" wx:key="{{time_index}}">
+	  <view class='left_time'>
+		  <view>{{index}}</view>
+		</view>
+	</view>
+
+  <view class="cu-modal {{modalName=='DialogModal2'?'show':''}}">
+		<view class="cu-dialog">
+			<view class="cu-bar bg-white justify-end">
+				<view class="content">新加周计划</view>
+				<view class="action" bindtap="hideModal">
+					<text class="cuIcon-close text-red"></text>
+				</view>
+			</view>
+			<form bindsubmit="gettext">
+				<view class="padding-xl">
+					<view class="cu-form-group">
+		        <view class="title">时间选择</view>
+		        <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="TimeChange">
+			        <view class="picker"> {{time}} </view>
+		        </picker>
+	        </view>
+					<view class="cu-form-group">
+						<input placeholder="便签内容" name='newtext' value='{{text}}'></input>
+					</view>
+				</view>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+						<button class="cu-btn bg-green margin-left" formType="submit" bindtap="hideModal">确定</button>
+					</view>
+				</view>
+			</form>
+		</view>
+	</view>
 </block>
-<block wx:if="{{TabCur==2}}">
 
+
+
+<block wx:if="{{TabCur==2}}">
+<view class='wrap'>
+	<view>
+		<view class='date-show'>
+			<view class='lt-arrow' bindtap='lastMonth'>
+				<text class="cuIcon-pullleft lg text-gray"></text>
+			</view>
+			{{year}}年{{month}}月
+			<view class='rt-arrow' bindtap='nextMonth'>
+				<text class="cuIcon-pullright lg text-gray"></text>
+			</view>
+		</view>
+	</view>
+
+	<view class='header'>
+		<view wx:for='{{mydate}}' class='{{(index == todayIndex) && isTodayWeek ? "weekMark" : ""}}'>{{item}}
+			<view></view>
+		</view>
+	</view>
+
+	<view class='date-box'>
+		<view wx:for='{{dateArr}}' class='{{isToday == item.isToday ? "nowDay" : ""}} {{isclick==item.isToday?"isclick":""}}' style="background-color:{{score}};" data-date="{{item.isToday}}" bindtap='mytap'>
+			<view class='date-head'>
+				{{item.dateNum}}
+			</view>
+		</view>
+	</view>
+
+	<view class="cu-modal {{modalName=='DialogModal3'?'show':''}}">
+		<view class="cu-dialog">
+			<view class="cu-bar bg-white justify-end">
+				<view class="content">记事</view>
+				<view class="action" bindtap="hideModal">
+					<text class="cuIcon-close text-red"></text>
+				</view>
+			</view>
+			<form bindsubmit="gettext">
+				<view class="padding-xl">
+					<view class="cu-form-group">
+						<view class="title">日期选择</view>
+						<picker mode="date" value="{{date}}" start="2020-01-01" end="2021-09-01" bindchange="DateChange">
+							<view class="picker">
+								{{date}}
+							</view>
+						</picker>
+					</view>
+					<view class="cu-form-group">
+						<input placeholder="便签内容" name='newtext' value='{{text}}'></input>
+					</view>
+				</view>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+						<button class="cu-btn bg-green margin-left" formType="submit" bindtap="hideModal">确定</button>
+					</view>
+				</view>
+			</form>
+		</view>
+	</view>
+
+	<!--card 便签内容-->
+	<view class="cu-card dynamic {{isCard?'no-card':''}} delete {{editTrue?'':'isRuleHide'}}" >
+		<view class="cu-item shadow">
+			<view class="cu-list menu-avatar">
+		<button class="cuIcon-close text-gray cu-btn" style="width:40rpx" bindtap="hidebut">
+		</button>
+			</view>
+			<view class="text-content">
+				<text class="font">
+				{{usertext}}</text>
+				<button class="cuIcon-write text-write cu-btn right" style="width:40rpx" bindtap="edit"></button>
+			</view>
+			<view class="text-gray text-sm text-right padding">
+				<text class="cuIcon-favor text-gray margin-left font"></text>
+			</view>
+		</view>
+	</view>
+
+	<view class="add_monthplan_position" bindtap="showModal" data-target="DialogModal3">
+		<text class="cuIcon-roundadd text-gray add_monthplan_size"></text>
+	</view>
+</view>
 </block> 
