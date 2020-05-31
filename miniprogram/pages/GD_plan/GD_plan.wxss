@@ -11,8 +11,8 @@ page{
 .add_dayplan_position{
   position:absolute;
   right: 8px;
-   left: auto;
-   top: 35px;
+  left: auto;
+  top: 35px;
 }
 .xl{
   font-size: xx-large;
@@ -38,7 +38,6 @@ view{
   height: 120rpx;
   line-height: 120rpx;
   overflow: hidden;
-   
 }
 .item:last-child{
   border-bottom: 2rpx solid#eee;
@@ -205,7 +204,8 @@ view{
 }
 
 /*week*/
-.top {
+
+.week-top {
   background-color: #94b9ce;
   color: #333;
   height: 100rpx;
@@ -213,14 +213,14 @@ view{
   margin-left: 8%;
 }
 
-.top-text {
+.week-top-text {
   float: left;
   width: 14.2%;
   font-size: 9pt;
   align-items: center;
 }
 
-.top-text view {
+.week-top-text view {
   line-height: 50rpx;
   display: block;
   margin-top: 15rpx;
@@ -236,5 +236,12 @@ view{
   font-size: 40rpx;
   width: 8%;
   text-align: center;
-  
+}
+
+.add_weekplan
+{
+  position:absolute;
+  right: 8px;
+  left: auto;
+  top: 28px;
 }

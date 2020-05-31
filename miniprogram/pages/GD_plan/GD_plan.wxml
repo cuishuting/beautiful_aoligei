@@ -61,13 +61,30 @@
 
 <block wx:if="{{TabCur==1}}">
   
-    <view class="top">
-      <view wx:for="{{7}}" class="top-text" wx:key="{{index}}">
-        <view class='top-text'>
-          <view>{{index+1}}</view>
-        </view>
+  <view class="flex padding justify-center">
+	  <view class="margin-xs radius">
+		  <view class="cu-capsule round">
+			  <view class="cu-tag bg-blue ">
+				  <text class="cuIcon-likefill"></text>
+			  </view>
+			  <view>
+				  <text class="cu-tag line-blue todaytodo_size">开启规律生活</text>
+				</view>
+        <view bindtap="showModal" data-target="DialogModal2">
+			    <text class="cuIcon-add lg padding xl text-blue add_dayplan_position">
+			    </text>
+		    </view>
+		  </view>
+  	</view>
+  </view>
+
+  <view class="week-top">
+    <view wx:for="{{7}}" class="top-text" wx:key="{{index}}">
+      <view class='week-top-text'>
+        <view>{{index+1}}</view>
       </view>
     </view>
+  </view>
 
   <view wx:for="{{24}}" wx:key="{{time_index}}">
 	  <view class='left_time'>
@@ -75,6 +92,35 @@
 		</view>
 	</view>
 
+  <view class="cu-modal {{modalName=='DialogModal2'?'show':''}}">
+		<view class="cu-dialog">
+			<view class="cu-bar bg-white justify-end">
+				<view class="content">新加周计划</view>
+				<view class="action" bindtap="hideModal">
+					<text class="cuIcon-close text-red"></text>
+				</view>
+			</view>
+			<form bindsubmit="gettext">
+				<view class="padding-xl">
+					<view class="cu-form-group">
+		        <view class="title">时间选择</view>
+		        <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="TimeChange">
+			        <view class="picker"> {{time}} </view>
+		        </picker>
+	        </view>
+					<view class="cu-form-group">
+						<input placeholder="便签内容" name='newtext' value='{{text}}'></input>
+					</view>
+				</view>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+						<button class="cu-btn bg-green margin-left" formType="submit" bindtap="hideModal">确定</button>
+					</view>
+				</view>
+			</form>
+		</view>
+	</view>
 </block>
 
 
@@ -107,7 +153,7 @@
 		</view>
 	</view>
 
-	<view class="cu-modal {{modalName=='DialogModal2'?'show':''}}">
+	<view class="cu-modal {{modalName=='DialogModal3'?'show':''}}">
 		<view class="cu-dialog">
 			<view class="cu-bar bg-white justify-end">
 				<view class="content">记事</view>
@@ -157,7 +203,7 @@
 		</view>
 	</view>
 
-	<view class="add_monthplan_position" bindtap="showModal" data-target="DialogModal2">
+	<view class="add_monthplan_position" bindtap="showModal" data-target="DialogModal3">
 		<text class="cuIcon-roundadd text-gray add_monthplan_size"></text>
 	</view>
 </view>
