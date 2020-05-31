@@ -1,13 +1,14 @@
 {
   "pages": [
     "pages/GD_index/GD_index",
+    "pages/calendar/calendar",
     "pages/index/index",
     "pages/GD_getPhoto/GD_getPhoto",
     "pages/GD_Report/GD_Report",
     "pages/GD_recommend/GD_recommend",
     "pages/GD_plan/GD_plan",
-    "pages/day/day",
-    "pages/calendar/calendar"
+    "pages/day/day"
+    
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

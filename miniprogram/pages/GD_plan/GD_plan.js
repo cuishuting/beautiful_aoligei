@@ -258,8 +258,13 @@ Page({
 
   },
   tabSelect(e) {
+    var pagenum=e.currentTarget.dataset.id
     this.setData({
       TabCur: e.currentTarget.dataset.id,
+    })
+    if(pagenum==2)
+    wx.navigateTo({
+      url: '../calendar/calendar',
     })
   }
 })
