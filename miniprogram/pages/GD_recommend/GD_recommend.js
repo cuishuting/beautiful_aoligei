@@ -5,30 +5,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-    face_data: {},
     TabCur: 0,
-    list:[],
     list0: [
       {
         name: "DIOR花秘瑰萃洁颜泡沫",
         picture:"https://www.dior.cn/beauty/version-5.1563986503613/resize-image/ep/3000/2000/90/0/horizon%252Fcovers%252FY0996035_C099600035_E01_ZHC.jpg",
-        cost: "2000"
+        cost: 2000
       },
       {
         name: "DIOR肌活蕴能洁面凝露",
         picture:"https://www.dior.cn/beauty/version-5.1563986503613/resize-image/ep/3000/2000/90/0/%252FY0996419%252FV002%252FY0996419_C099600419_E02_ZHC.jpg",
-        cost: "1800"
+        cost: 1800
       }
     ],
     list1: [
       {
         name: "DIOR乐肤源澎澎弹盈润面膜",
         picture:"https://www.dior.cn/beauty/version-5.1563986503613/resize-image/ep/3000/2000/90/0/horizon%252Fcovers%252FY0691530_F069153080_E01_ZHC.jpg",
-        cost: "1000"
+        cost: 1000
       }
     ],
     list2:[],
-    list3:[]
+    list3:[],
+    list4:[],
   }, 
   tabSelect(e) {
     this.setData({
@@ -40,16 +39,67 @@ Page({
    */
   onLoad: function (options) {
     var recommend_ref_data = wx.getStorageSync('face_data');
-    console.log("%%%%%%%%%");
-    console.log(recommend_ref_data);
-    console.log("%%%%%%%5");
+    //console.log(recommend_ref_data);
+    var skin_type = recommend_ref_data.skin_type.skin_type; //皮肤类型的数字表示
+    var skin = ""; //皮肤类型的中文表示
+    switch(skin_type){
+      case 0:
+        skin = "油性皮肤";
+        break;
+      case 1:
+        skin = "干性皮肤";
+        break;
+      case 2:
+        skin = "中性皮肤";
+        break;
+      case 3:
+        skin = "混合性皮肤";
+        break;
+    }
+    // console.log("*******************");
+    // console.log(skin);
+    // console.log("######################");
     var that = this;
-    that.setData({
-      face_data: recommend_ref_data,
-    });
-    console.log("^^^^^^^^");
-    console.log(this.face_data);
-    console.log("^^^^^^^^^");
+    var emulsion = 0;
+    const db = wx.cloud.database();
+    db.collection('emulsion').where({
+      skintype: skin
+    }).count().then(res => {
+      emulsion = res.total;
+      // console.log("(((((((((((((((((((");
+      // console.log(emulsion);
+      // console.log(")))))))))))))))))))");
+    })
+    db.collection('emulsion').where({
+      skintype: skin
+    }).get({
+      success:function(res) {
+        console.log("&&&&&&&&&&&&&&");
+        console.log(res.data[0]);
+        console.log(res.data[1]);
+        console.log(res.data[2]);
+        console.log("^^^^^^^^");
+       var emulsion_list = [];
+       for (var i = 0; i < emulsion; i++) {
+         var cur_emulsion = {
+           name: "",
+           picture: "",
+           cost:0
+         };
+         cur_emulsion.name = res.data[i].name;
+         cur_emulsion.picture = res.data[i].image;
+         cur_emulsion.cost = res.data[i].price;
+         console.log("当前乳液信息");
+         console.log(cur_emulsion);
+         emulsion_list.push(cur_emulsion);
+       }
+       console.log("emulsion list: !!!!!!");
+       console.log(emulsion_list);
+       that.setData({
+         list4: emulsion_list,
+       })
+      }
+    })
   },
 
   /**

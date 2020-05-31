@@ -4,13 +4,16 @@
 		<text class="cuIcon-favor lg"></text> 洗面奶
 	</view>
 	<view class="cu-item {{1==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="1">
-		<text class="cuIcon-discover lg"></text> 面膜
+		<text class="cuIcon-discover lg"></text> 眼霜
 	</view>
 	<view class="cu-item {{2==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="2">
 		<text class="cuIcon-like lg"></text> 精华
 	</view>
 	<view class="cu-item {{3==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="3">
-		<text class="cuIcon-evaluate lg"></text> 水乳
+		<text class="cuIcon-evaluate lg"></text> 爽肤水
+	</view>
+	<view class="cu-item {{4==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="4">
+		<text class="cuIcon-evaluate lg"></text> 乳液
 	</view>
 </scroll-view>
 <view wx:for="{{list0}}" class="item" class="cu-list menu-avatar"  wx:if="{{TabCur==0}}">
@@ -56,6 +59,20 @@
 	</view>
 </view>
 <view wx:for="{{list3}}" class="item" class="cu-list menu-avatar"  wx:if="{{TabCur==3}}">
+	<view class="cu-item">
+		<view class="cu-avatar lg" style="background-image:url({{item.picture}});">
+			<view class="content">
+				<view class="text-black">{{item.name}}</view>
+			</view>
+		</view>
+		<view class="action">
+			<view class="solid-bottom text-xl">
+				<text class="text-price text-black">{{item.cost}}</text>
+			</view>
+		</view>
+	</view>
+</view>
+<view wx:for="{{list4}}" class="item" class="cu-list menu-avatar"  wx:if="{{TabCur==4}}">
 	<view class="cu-item">
 		<view class="cu-avatar lg" style="background-image:url({{item.picture}});">
 			<view class="content">
