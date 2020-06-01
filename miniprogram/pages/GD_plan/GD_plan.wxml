@@ -187,15 +187,15 @@
 
 	<!--card 便签内容-->
 	<view class="cu-card dynamic {{isCard?'no-card':''}} delete {{editTrue?'':'isRuleHide'}}" >
-		<view class="cu-item shadow">
+		<view class="cu-item shadow bg-gray">
 			<view class="cu-list menu-avatar">
-		<button class="cuIcon-close text-gray cu-btn" style="width:40rpx" bindtap="hidebut">
+		<button class="cuIcon-close text-gray cu-btn" style="width:60rpx" bindtap="hidebut">
 		</button>
 			</view>
 			<view class="text-content">
 				<text class="font">
 				{{usertext}}</text>
-				<button class="cuIcon-write text-write cu-btn right" style="width:40rpx" bindtap="edit"></button>
+				<button class="cuIcon-write text-write cu-btn right" style="width:60rpx" bindtap="edit"></button>
 			</view>
 			<view class="text-gray text-sm text-right padding">
 				<text class="cuIcon-favor text-gray margin-left font"></text>

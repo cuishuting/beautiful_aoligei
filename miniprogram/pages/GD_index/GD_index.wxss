@@ -2,3 +2,18 @@
 page{
   background-color: white;
 }
+.background {
+  width: 100%;
+  height: 100%;
+  position:fixed; 
+  background-size:100% 100%;
+  z-index: -1;
+  }
+.image1{
+  width:180rpx;
+  height:200rpx;
+}
+.image2{
+  width:200rpx;
+  height:200rpx;
+}
