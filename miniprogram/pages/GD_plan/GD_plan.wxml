@@ -92,6 +92,10 @@
 		</view>
 	</view>
 
+	<view wx:for="{{week_todo}}" wx:key="{{index}}">
+	  <view style="height:{{week_todo[index].length*100}}rpx; top:{{week_todo[index].start_time*100+313}}rpx; left:{{(week_todo[index].day-1)*13.14+8}}%" class="week_todo">{{week_todo[index].context}}</view>
+	</view>
+
   <view class="cu-modal {{modalName=='DialogModal2'?'show':''}}">
 		<view class="cu-dialog">
 			<view class="cu-bar bg-white justify-end">
