@@ -1,13 +1,15 @@
 <view>
 	<image class='background' src="/images/background.jpg" mode="aspectFill"></image>
 	<view class="flex solid-bottom padding-top-xl justify-center">
-		<view class="margin-xs radius padding-top-xl">
+		<view class="margin-xs radius padding-left-xl">
 			<image src='/images/plan-but.png ' class='image1' bindtap="jumptoplan"></image>
+      <image src='/images/plan-word.png ' class='word' bindtap="jumptoplan"></image>
 		</view>
 	</view>
   <view class="flex solid-bottom padding justify-between">
-      <view class="margin-xs radius padding-left-xl">
+      <view class="margin-xs radius ">
       <image src='/images/beauty-but.png ' class='image2' bindtap="jumptogetphoto"></image>
+      <image src='/images/beauty-word.png ' class='word' bindtap="jumptogetphoto"></image> 
       </view>
     </view>
 </view>
