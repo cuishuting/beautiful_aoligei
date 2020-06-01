@@ -50,6 +50,26 @@ Page({
       }
     ],
     time: '12:01',
+    week_todo:[
+      {
+        day: 1,
+        start_time: 0,
+        context: "睡觉",
+        length:6,
+      },
+      {
+        day:3,
+        start_time: 10,
+        context: "机器学习",
+        length:1.67,
+      },
+      {
+        day:1,
+        start_time: 14,
+        context:"软件工程",
+        length:1.67,
+      }
+    ]
   },
   checkboxChange: function (e) {
     var temp1 = e.detail.value

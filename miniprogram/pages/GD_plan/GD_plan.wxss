@@ -12,7 +12,7 @@ page{
   position:absolute;
   right: 8px;
   left: auto;
-  top: 35px;
+  top: 90rpx;
 }
 .xl{
   font-size: xx-large;
@@ -221,7 +221,7 @@ view{
 }
 
 .week-top-text view {
-  line-height: 50rpx;
+  line-height: 80rpx;
   display: block;
   margin-top: 15rpx;
   padding-left: 40%;
@@ -230,7 +230,7 @@ view{
 }
 
 .left_time{
-  line-height:100rpx;
+  height:100rpx;
   background-color: white;
   color:black;
   font-size: 40rpx;
@@ -241,7 +241,16 @@ view{
 .add_weekplan
 {
   position:absolute;
-  right: 8px;
+  right: 16rpx;
   left: auto;
-  top: 28px;
+  top: 56rpx;
+}
+
+.week_todo{
+  width: 13.14%;
+  background-color: rgb(238, 177, 153);
+  position: absolute;
+  color:rgb(255, 255, 255);
+  font-size: 40rpx;
+  text-align: center;
 }
