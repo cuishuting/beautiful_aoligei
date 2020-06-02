@@ -3,8 +3,8 @@
 	<view class="cu-item {{0==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="0">
 		<text class="cuIcon-favor lg" bindtap="facialFoam">洗面奶</text>
 	</view>
-	<view class="cu-item {{1==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="1">
-		<text class="cuIcon-discover lg" bindtap="eyeCream">眼霜</text> 
+	<view class="cu-item {{1==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="1" > 
+		<text class="cuIcon-discover lg" bindtap="eyeCream" >眼霜</text> 
 	</view>
 	<view class="cu-item {{2==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="2">
 		<text class="cuIcon-like lg" bindtap="Essence">精华</text> 
@@ -30,8 +30,8 @@
 		</view>
 	</view>
 </view>
-<view wx:for="{{list1}}" class="item" class="cu-list menu-avatar"  wx:if="{{TabCur==1}}">
-	<view class="cu-item">
+<view wx:for="{{list1}}"  class="item" class="cu-list menu-avatar"  wx:if="{{TabCur==1}}">
+	<view class="cu-item" hidden="{{haveEyeProblem}}">
 		<view class="cu-avatar lg" style="background-image:url({{item.picture}});">
 			<view class="content">
 				<view class="text-black">{{item.name}}</view>
@@ -43,6 +43,9 @@
 			</view>
 		</view>
 	</view>
+</view>
+<view hidden="{{show_pic}}" class="out_pic">
+		<image src="../../../images/noEyeProNote.png"  class="pic"></image>
 </view>
 <view wx:for="{{list2}}" class="item" class="cu-list menu-avatar"  wx:if="{{TabCur==2}}">
 	<view class="cu-item">

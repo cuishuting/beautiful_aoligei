@@ -46,13 +46,31 @@
 		"game": {
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 0,
 			"list": [
 				{
 					"id": -1,
 					"name": "db guide",
-					"pathName": "pages/databaseGuide/databaseGuide"
+					"pathName": "pages/databaseGuide/databaseGuide",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "packageC/pages/GD_recommend/GD_recommend",
+					"pathName": "packageC/pages/GD_recommend/GD_recommend",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageC/pages/GD_recommend/GD_recommend",
+					"pathName": "packageC/pages/GD_recommend/GD_recommend",
+					"scene": null
 				}
 			]
 		}
