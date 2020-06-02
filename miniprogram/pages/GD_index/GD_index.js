@@ -1,12 +1,25 @@
 // miniprogram/pages/GD_index/GD_index.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    openid: '',
   },
+  onLoad: function () {
+   this.getOpenid();
+  },
+ // 获取用户openid
+  getOpenid() {
+    let that = this;
+    wx.cloud.callFunction({
+    name: 'getOpenid',
+    complete: res => {
+    console.log('云函数获取到的openid: ', res.result.openId)
+    var openid = res.result.openId;
+    that.setData({
+     openid: openid
+    })
+   }
+  })
+ },
   jumptoplan: function() {
     wx.navigateTo({
       url: '../../packageB/pages/GD_plan/GD_plan',
@@ -17,22 +30,7 @@ Page({
       url: '../../packageA/pages/GD_getPhoto/GD_getPhoto',
     })
   },
-  // jumptorecommend: function() {
-  //   wx.navigateTo({
-  //     url: '../GD_recommend/GD_recommend',
-  //   })
-  // },
-  // jumptoreport: function() {
-  //   wx.navigateTo({
-  //     url: '../GD_Report/GD_Report',
-  //   })
-  // },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成
