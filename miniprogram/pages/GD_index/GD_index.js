@@ -9,24 +9,24 @@ Page({
   },
   jumptoplan: function() {
     wx.navigateTo({
-      url: '../GD_plan/GD_plan',
+      url: '../../packageB/pages/GD_plan/GD_plan',
     })
   },
   jumptogetphoto: function() {
     wx.navigateTo({
-      url: '../GD_getPhoto/GD_getPhoto',
+      url: '../../packageA/pages/GD_getPhoto/GD_getPhoto',
     })
   },
-  jumptorecommend: function() {
-    wx.navigateTo({
-      url: '../GD_recommend/GD_recommend',
-    })
-  },
-  jumptoreport: function() {
-    wx.navigateTo({
-      url: '../GD_Report/GD_Report',
-    })
-  },
+  // jumptorecommend: function() {
+  //   wx.navigateTo({
+  //     url: '../GD_recommend/GD_recommend',
+  //   })
+  // },
+  // jumptoreport: function() {
+  //   wx.navigateTo({
+  //     url: '../GD_Report/GD_Report',
+  //   })
+  // },
   /**
    * 生命周期函数--监听页面加载
    */

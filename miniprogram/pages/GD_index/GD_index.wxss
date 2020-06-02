@@ -10,12 +10,17 @@ page{
   z-index: -1;
   }
 .image1{
-  width:300rpx;
-  height:300rpx;
+  width:355rpx;
+  height:350rpx;
+  position:absolute;
+  top:300rpx;
+  left:340rpx;
 }
 .image2{
-  width:400rpx;
-  height:320rpx;
+  width:360rpx;
+  height:360rpx;
+  position:absolute;
+  top:490rpx;
 }
 .word{
   width:260rpx;

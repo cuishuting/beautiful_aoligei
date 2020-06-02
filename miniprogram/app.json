@@ -1,11 +1,27 @@
 {
   "pages": [
-    "pages/GD_index/GD_index",
-    "pages/index/index",
-    "pages/GD_getPhoto/GD_getPhoto",
-    "pages/GD_Report/GD_Report",
-    "pages/GD_recommend/GD_recommend",
-    "pages/GD_plan/GD_plan"
+    "pages/GD_index/GD_index"
+  ],
+  "subpackages":[
+    {
+      "root":"packageA",
+      "pages": [
+        "pages/GD_getPhoto/GD_getPhoto",
+        "pages/GD_Report/GD_Report"
+      ]
+    },
+    {
+      "root":"packageB",
+      "pages": [
+        "pages/GD_plan/GD_plan"
+      ]
+    },
+    {
+      "root":"packageC",
+      "pages": [
+        "pages/GD_recommend/GD_recommend"
+      ]
+    }
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
