@@ -1,5 +1,6 @@
 //app.js
 App({
+  
   onLaunch: function () {
     
     if (!wx.cloud) {
@@ -15,7 +16,23 @@ App({
         traceUser: true,
       })
     }
-
-    this.globalData = {}
-  }
+    this.globalData = {
+      openid: ''
+    }
+    
+    this.getOpenid();
+  },
+  getOpenid() {
+    wx.cloud.callFunction({
+    name: 'getOpenid',
+    complete: res => {
+      console.log('云函数获取到的openid: ', res.result.openId)
+      var openid = res.result.openId;
+      this.globalData = {
+        openid: openid
+      }
+    }
+  })
+ },
+  
 })
