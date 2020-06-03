@@ -4,7 +4,6 @@ Page({
     openid: '',
   },
   onLoad: function () {
-   this.getOpenid();
   },
  // 获取用户openid
   getOpenid() {

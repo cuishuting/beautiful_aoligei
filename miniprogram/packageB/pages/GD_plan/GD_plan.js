@@ -1,4 +1,5 @@
 // pages/day/day.js
+const db = wx.cloud.database();
 Page({
   data: {
     tabNav:['今日待办','周计划','月计划'],
@@ -70,7 +71,6 @@ Page({
 
   inquire_day_todo:function(){
     let day_todo=[];
-    const db = wx.cloud.database();
     db.collection('Day_todo').where({
       _openid : getApp().globalData.openid
     })
@@ -80,12 +80,15 @@ Page({
         {
           day_todo.push({
             txt: res.data[i].context,
-            is_finited: res.data[i].is_finished
+            is_finited: res.data[i].is_finished,
+            id: res.data[i]._id,
+            txtStyle:''
           })
         }
         this.setData({
           day_todo_list: day_todo
         })
+        console.log(this.data.day_todo_list)
       }
     });
   },
@@ -119,7 +122,6 @@ Page({
   },
   backText: function (e) {
     var that = this
-    const db = wx.cloud.database()
     let context = e.detail.value.add_text
     if(context!=''){
       db.collection('Day_todo').add({
@@ -127,17 +129,18 @@ Page({
           context: context,
           is_finished: false,
         },
-        success: function(res) {
-          console.log(res._id)
+        success: res=> {
+          that.data.day_todo_list.push({
+            txt: context,
+            is_finished: false,
+            id: res._id,
+            txtStyle:''
+          });
+          this.setData({
+            day_text:'',
+            day_todo_list: that.data.day_todo_list
+          });
         }
-      });
-      that.data.day_todo_list.push({
-        txt: context,
-        is_finished: false,
-      })
-      this.setData({
-        day_text:'',
-        day_todo_list: that.data.day_todo_list
       });
     }
   },
@@ -168,12 +171,13 @@ Page({
       }
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
-      var list = this.data.list;
+      var list = this.data.day_todo_list;
       list[index].txtStyle = txtStyle;
       //更新列表的状态
       this.setData({
-        list: list
+        day_todo_list: list
       });
+      
     }
   },
 
@@ -189,11 +193,11 @@ Page({
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
       console.log(index);
-      var list = this.data.list;
+      var list = this.data.day_todo_list;
       list[index].txtStyle = txtStyle;
       //更新列表的状态
       this.setData({
-        list: list
+        day_todo_list: list
       });
     }
   },
@@ -221,12 +225,12 @@ Page({
   delItem: function (e) {
     //获取列表中要删除项的下标
     var index = e.target.dataset.index;
-    var list = this.data.list;
-    //移除列表中下标为index的项
+    var list = this.data.day_todo_list;
+    var id = list[index].id
+    db.collection('Day_todo').doc(id).remove();
     list.splice(index, 1);
-    //更新列表的状态
     this.setData({
-      list: list
+      day_todo_list: list
     });
   },
   //测试临时数据
