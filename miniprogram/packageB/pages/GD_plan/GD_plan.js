@@ -80,7 +80,7 @@ Page({
         {
           day_todo.push({
             txt: res.data[i].context,
-            is_finited: res.data[i].is_finished,
+            is_finished: res.data[i].is_finished,
             id: res.data[i]._id,
             txtStyle:''
           })
@@ -88,27 +88,24 @@ Page({
         this.setData({
           day_todo_list: day_todo
         })
-        console.log(this.data.day_todo_list)
       }
     });
   },
   
-  checkboxChange: function (e) {
-    var temp1 = e.detail.value
-    var temp2 = ''
-    console.log(temp1)
-    if (temp1.length != 0) {
-      for (var i = 0, len = temp1.length; i < len; i++) {
-        temp2 = temp2 + temp1[i] + ','
+  day_checkboxChange: function (e) {
+    var index = e.currentTarget.dataset.index;
+    var list = this.data.day_todo_list;
+    var id = list[index].id
+    var is = !(list[index].is_finished)
+    list[index].is_finished = is
+    db.collection('Day_todo').doc(id).update({
+      data: {
+        is_finished:is
       }
-      /*this.setData({
-       text:'您选择了：'+temp2
-      })*/
-    } else {
-      /*this.setData({
-       text:''
-      })*/
-    }
+    });
+    this.setData({
+      day_todo_list: list
+    });
   },
   showModal(e) {
     this.setData({
@@ -192,7 +189,6 @@ Page({
       var txtStyle = disX > delBtnWidth / 2 ? "left:-" + delBtnWidth + "px" : "left:0px";
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
-      console.log(index);
       var list = this.data.day_todo_list;
       list[index].txtStyle = txtStyle;
       //更新列表的状态
@@ -207,7 +203,6 @@ Page({
     try {
       var res = wx.getSystemInfoSync().windowWidth;
       var scale = (750 / 2) / (w / 2); //以宽度750px设计稿做宽度的自适应
-      // console.log(scale);
       real = Math.floor(res / scale);
       return real;
     } catch (e) {
@@ -232,18 +227,6 @@ Page({
     this.setData({
       day_todo_list: list
     });
-  },
-  //测试临时数据
-  checkboxChange: function (e) {
-    var temp1 = e.detail.value;
-    var temp2 = ''
-    console.log(temp1)
-    if (temp1.length != 0) {
-      for (var i = 0, len = temp1.length; i < len; i++) {
-        temp2 = temp2 + temp1[i] + ','
-      }
-    } else {
-    }
   },
   
   tabSelect(e) {
