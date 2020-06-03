@@ -47,7 +47,7 @@
 	<view class="items">
 		<checkbox-group bindchange="checkboxChange">
 			<view wx:for="{{day_todo_list}}" wx:key="{{index}}" class="item">
-				<view bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}"  style="" class="inner txt text">
+				<view bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}"  style="{{item.txtStyle}}" class="inner txt text">
 					<checkbox value="{{item.txt}}" />
 					{{item.txt}}</view>
 				<view data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
