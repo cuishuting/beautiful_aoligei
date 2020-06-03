@@ -1,29 +1,12 @@
 // pages/day/day.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     tabNav:['今日待办','周计划','月计划'],
     delBtnWidth: 180, //删除按钮宽度单位（rpx）;
     //日计划数据
-    day_text:'',
+    day_text:"",
     TabCur:'',
-    list: [
-      {
-        txtStyle: "",
-        txt: "物理作业"
-      },
-      {
-        txtStyle: "",
-        txt: "化学作业"
-      },
-      {
-        txtStyle: "",
-        txt: "生物作业"
-      },
-    ],
+    day_todo_list: [],
     //月计划数据
     isclick:false,
     year: 0,
@@ -71,6 +54,42 @@ Page({
       }
     ]
   },
+   /*监听*/
+   onLoad: function () {
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    this.dateInit();
+    this.setData({
+      year: year,
+      month: month,
+      isToday: '' + year + month + now.getDate()
+    })
+    this.inquire_day_todo();
+  },
+
+  inquire_day_todo:function(){
+    let day_todo=[];
+    const db = wx.cloud.database();
+    db.collection('Day_todo').where({
+      _openid : getApp().globalData.openid
+    })
+    .get({
+      success: res=> {
+        for(var i=0;i<res.data.length;i++)
+        {
+          day_todo.push({
+            txt: res.data[i].context,
+            is_finited: res.data[i].is_finished
+          })
+        }
+        this.setData({
+          day_todo_list: day_todo
+        })
+      }
+    });
+  },
+  
   checkboxChange: function (e) {
     var temp1 = e.detail.value
     var temp2 = ''
@@ -99,19 +118,26 @@ Page({
     })
   },
   backText: function (e) {
-    var that = this;
-    var add_text = e.detail.value.add_text;
-    console.log(add_text);
-    if (add_text != '') {
-      var add_list = {
-        txtStyle: "",
-        txt: add_text
-      }
-      that.data.list.push(add_list)
-      console.log(that.data.list)
-      that.setData({
-        list: that.data.list,
-        day_text:''
+    var that = this
+    const db = wx.cloud.database()
+    let context = e.detail.value.add_text
+    if(context!=''){
+      db.collection('Day_todo').add({
+        data:{
+          context: context,
+          is_finished: false,
+        },
+        success: function(res) {
+          console.log(res._id)
+        }
+      });
+      that.data.day_todo_list.push({
+        txt: context,
+        is_finished: false,
+      })
+      this.setData({
+        day_text:'',
+        day_todo_list: that.data.day_todo_list
       });
     }
   },
@@ -212,80 +238,16 @@ Page({
       for (var i = 0, len = temp1.length; i < len; i++) {
         temp2 = temp2 + temp1[i] + ','
       }
-      /*this.setData({
-       text:'您选择了：'+temp2
-      })*/
     } else {
-      /*this.setData({
-       text:''
-      })*/
     }
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
-    this.initEleWidth();
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
+  
   tabSelect(e) {
     var pagenum=e.currentTarget.dataset.id
     this.setData({
       TabCur: e.currentTarget.dataset.id,
     })
   },
-
-
 
   gettext: function (e) {
     var that = this
@@ -324,19 +286,6 @@ DateChange(e) {
   })
   console.log(this.data.date)
 },
-
-  /*监听*/
-  onLoad: function () {
-    let now = new Date();
-    let year = now.getFullYear();
-    let month = now.getMonth() + 1;
-    this.dateInit();
-    this.setData({
-      year: year,
-      month: month,
-      isToday: '' + year + month + now.getDate()
-    })
-  },
 
   dateInit: function (setYear, setMonth) {
     //全部时间的月份都是按0~11基准，显示月份才+1
