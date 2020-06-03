@@ -80,7 +80,8 @@ Page({
         {
           day_todo.push({
             txt: res.data[i].context,
-            is_finited: res.data[i].is_finished
+            is_finited: res.data[i].is_finished,
+            id: res.data[i]._id
           })
         }
         this.setData({
@@ -127,17 +128,17 @@ Page({
           context: context,
           is_finished: false,
         },
-        success: function(res) {
-          console.log(res._id)
+        success: res=> {
+          that.data.day_todo_list.push({
+            txt: context,
+            is_finished: false,
+            id: res._id
+          });
+          this.setData({
+            day_text:'',
+            day_todo_list: that.data.day_todo_list
+          });
         }
-      });
-      that.data.day_todo_list.push({
-        txt: context,
-        is_finished: false,
-      })
-      this.setData({
-        day_text:'',
-        day_todo_list: that.data.day_todo_list
       });
     }
   },
@@ -221,13 +222,14 @@ Page({
   delItem: function (e) {
     //获取列表中要删除项的下标
     var index = e.target.dataset.index;
-    var list = this.data.list;
+    var list = this.data.day_todo_list;
     //移除列表中下标为index的项
     list.splice(index, 1);
     //更新列表的状态
     this.setData({
-      list: list
+      day_todo_list: list
     });
+
   },
   //测试临时数据
   checkboxChange: function (e) {
