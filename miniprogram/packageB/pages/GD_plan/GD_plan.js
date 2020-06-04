@@ -34,27 +34,13 @@ Page({
       }
     ],
     clickdate: '',
-    time: '12:01',
-    week_todo: [
-      {
-        day: 1,
-        start_time: 0,
-        context: "睡觉",
-        length: 6,
-      },
-      {
-        day: 3,
-        start_time: 10,
-        context: "机器学习",
-        length: 1.67,
-      },
-      {
-        day: 1,
-        start_time: 14,
-        context: "软件工程",
-        length: 1.67,
-      }
-    ]
+    week_starttime: '12:00',
+    week_todo: [],
+    repeat_index:0,
+    week_repeat_picker:['每天','周一','周二','周三','周四','周五','周六','周日'],
+    week_current_index :'',
+    week_current_repeat :'',
+    week_current_start_time: ''
   },
   /*监听*/
   onLoad: function () {
@@ -69,6 +55,7 @@ Page({
     })
     this.inquire_day_todo();
     this.inquire_month_todo();
+    this.inquire_week_todo();
   },
 
   inquire_day_todo: function () {
@@ -429,7 +416,7 @@ Page({
   },
   TimeChange(e) {
     this.setData({
-      time: e.detail.value
+      week_starttime: e.detail.value
     })
   },
   cal_edit: function (e) {
@@ -474,5 +461,208 @@ Page({
       }
     }
     that.hideModal()
+  },
+  repeat_PickerChange(e) {
+    this.setData({
+      repeat_index: e.detail.value
+    })
+  },
+  week_submit_todo(e){
+    var repeat = parseInt(this.data.repeat_index);
+    var start_time = this.data.week_starttime;
+    var time_length = e.detail.value.week_time_length;
+    var newtext = e.detail.value.week_newtext;
+    var start_list = start_time.split(':');
+    var start = parseFloat(start_list[0])+parseFloat(start_list[1])/60;
+    var length = parseFloat(time_length);
+    var week_todo = this.data.week_todo;
+    db.collection('Week_todo').add({
+      data: {
+        day: repeat,
+        start_time:start,
+        time_length: length,
+        context: newtext
+      },
+      success: res => {
+        if(repeat!=0){
+          week_todo.push({
+            id: res._id,
+            day: repeat,
+            start_time: start,
+            length: length,
+            context: newtext
+          });
+        }
+        else{
+          for(var j=1;j<=7;j++)
+          {
+            week_todo.push({
+              id: res._id,
+              day: j,
+              start_time: start,
+              length: length,
+              context: newtext
+            });
+          }
+        }
+        this.setData({
+          week_todo:week_todo,
+          week_starttime: '12:00',
+          repeat_index:0,
+          text:''
+        })
+      }
+    });
+  },
+  inquire_week_todo: function () {
+    let week_todo = [];
+    db.collection('Week_todo').where({
+      _openid: getApp().globalData.openid
+    })
+      .get({
+        success: res => {
+          for (var i = 0; i < res.data.length; i++) {
+            if(res.data[i].day!=0){
+              week_todo.push({
+                id: res.data[i]._id,
+                day: res.data[i].day,
+                start_time: res.data[i].start_time,
+                length: res.data[i].time_length,
+                context: res.data[i].context
+              })
+            }
+            else{
+              for(var j=1;j<=7;j++){
+                week_todo.push({
+                  id: res.data[i]._id,
+                  day: j,
+                  start_time: res.data[i].start_time,
+                  length: res.data[i].time_length,
+                  context: res.data[i].context
+                })
+              }
+            }
+          }
+          this.setData({
+            week_todo: week_todo
+          })
+        }
+      });
+  },
+  week_set_current_id:function(e){
+    var index = e.currentTarget.dataset.index;
+    var week_todo = this.data.week_todo;
+    var id = week_todo[index].id;
+    var start = week_todo[index].start_time;
+    var hour = parseInt(start);
+    if((hour + '').length == 1) hour = '0' + hour;
+    var minite = parseInt((start - parseInt(start))*60);
+    if((minite + '').length == 1) minite = '0' + minite;
+    start = hour + ':' + minite;
+    var count = 0;
+    var day = '';
+    for(var i=0;i<week_todo.length;i++)
+    {
+      if(week_todo[i].id == id)
+      {
+        switch(week_todo[i].day){
+          case 1:
+            day='周一';
+            break;
+          case 2:
+            day='周二';
+            break;
+          case 3:
+            day='周三';
+            break;
+          case 4:
+            day='周四';
+            break;
+          case 5:
+            day='周五';
+            break;
+          case 6:
+            day='周六';
+            break;
+          case 7:
+            day='周日';
+            break;
+        }
+        count+=1;
+      }
+    }
+    if(count == 7) day = '每天';
+    this.setData({
+      week_current_index : index,
+      week_current_repeat: day,
+      week_current_start_time: start
+    })
+    this.showModal(e);
+  },
+  week_edit:function(e){
+    var week_todo = this.data.week_todo;
+    var repeat = week_todo[this.data.week_current_index].day;
+    var start = this.data.week_current_start_time;
+    var id = week_todo[this.data.week_current_index].id;
+    var count = 0;
+    for(var i=0;i<week_todo.length;i++)
+    {
+      if(week_todo[i].id == id)
+      {
+        count+=1;
+      }
+    }
+    if(count == 7) repeat = 0;
+    this.setData({
+      repeat_index: repeat,
+      week_starttime: start
+    });
+    this.showModal(e);
+  },
+  week_submit_edit:function(e){
+    var repeat = parseInt(this.data.repeat_index);
+    var start_time = this.data.week_starttime;
+    var time_length = e.detail.value.week_time_length;
+    var newtext = e.detail.value.week_newtext;
+    var start_list = start_time.split(':');
+    var start = parseFloat(start_list[0])+parseFloat(start_list[1])/60;
+    var length = parseFloat(time_length);
+    var week_todo = this.data.week_todo;
+    db.collection('Week_todo').doc(this.data.week_todo[this.data.week_current_index].id).update({
+      data: {
+        day: repeat,
+        start_time:start,
+        time_length: length,
+        context: newtext
+      },
+      success: res => {
+        this.inquire_week_todo();
+        this.setData({
+          week_starttime: '12:00',
+          repeat_index:0,
+          text:''
+        })
+      }
+    });
+  },
+  week_delete:function(e){
+    var week_todo = this.data.week_todo;
+    var id = week_todo[this.data.week_current_index].id;
+    db.collection('Week_todo').doc(id).remove();
+    for(var i=0;i<week_todo.length;i++)
+    {
+      if(week_todo[i].id == id)
+      {
+        week_todo.splice(i,1);
+        i--;
+      }
+    }
+    this.setData({
+      week_todo: week_todo,
+      week_starttime: '12:00',
+      repeat_index:0,
+      text:''
+    })
+    this.hideModal();
   }
 })

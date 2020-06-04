@@ -80,19 +80,101 @@
 	<view class="week-top">
 		<view wx:for="{{7}}" class="top-text" wx:key="{{index}}">
 			<view class='week-top-text'>
-				<view>{{index+1}}</view>
+				<view>周{{mydate[(index+1)%7]}}</view>
 			</view>
 		</view>
 	</view>
 
+  <scroll-view scroll-y='true' scroll-x='false' style='height: 900rpx'>
 	<view wx:for="{{24}}" wx:key="{{time_index}}">
 		<view class='left_time'>
-			<view>{{index}}</view>
+			<view>{{(index+4)%24}}:00</view>
 		</view>
+		<view class="divLine"></view>
 	</view>
 
 	<view wx:for="{{week_todo}}" wx:key="{{index}}">
-		<view style="height:{{week_todo[index].length*100}}rpx; top:{{week_todo[index].start_time*100+313}}rpx; left:{{(week_todo[index].day-1)*13.14+8}}%" class="week_todo">{{week_todo[index].context}}</view>
+		<view bindtap="week_set_current_id" data-target="Dialog_weekplan" data-index="{{index}}" style="height:{{item.length/60*100.7}}rpx; top:{{(item.start_time+20)%24*100.7}}rpx; left:{{(item.day-1)*13.14+8}}%" class="week_todo">{{item.context}}</view>
+	</view>
+	</scroll-view>
+
+  <view class="cu-modal {{modalName=='Dialog_weekplan'?'show':''}}">
+		<view class="cu-dialog">
+		  <view class="cu-bar bg-white justify-end">
+				<view class="content">周计划详情</view>
+				<view class="action" bindtap="hideModal">
+					<text class="cuIcon-close text-red"></text>
+				</view>
+			</view>
+			<form>
+				<view class="padding-xl">
+				  <view class="cu-form-group">
+				    <view class="title">重复</view>
+						<view class="picker">{{week_current_repeat}}</view>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">开始时间</view>
+						<view class="picker"> {{week_current_start_time}}</view>
+					</view>
+					<view class="cu-form-group">
+				    <view class="title">时长</view>
+						<view>{{week_todo[week_current_index].length}}分钟</view>
+					</view>
+					<view class="cu-form-group">
+						<view style="text-align: center; width: 100%;">{{week_todo[week_current_index].context}}</view>
+					</view>
+				</view>
+
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+						<button class="cu-btn bg-green margin-left" formType="submit" data-target='Dialog_week_edit' bindtap="week_edit">编辑</button>
+					</view>
+				</view>
+			</form>
+		</view>
+	</view>
+	
+	<view class="cu-modal {{modalName=='Dialog_week_edit'?'show':''}}">
+		<view class="cu-dialog">
+			<view class="cu-bar bg-white justify-end">
+				<view class="content">修改周计划</view>
+				<view class="action" bindtap="hideModal">
+					<text class="cuIcon-close text-red"></text>
+				</view>
+			</view>
+			<form bindsubmit="week_submit_edit">
+				<view class="padding-xl">
+				  <view class="cu-form-group">
+				    <view class="title">重复</view>
+						<picker bindchange="repeat_PickerChange" value="{{repeat_index}}" range="{{week_repeat_picker}}">
+						<view class="picker">{{week_repeat_picker[repeat_index]}}</view>
+						</picker>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">开始时间</view>
+						<picker mode="time" value="{{week_starttime}}" start="00:00" end="23:59" bindchange="TimeChange">
+							<view class="picker"> {{week_starttime}} </view>
+						</picker>
+					</view>
+					<view class="cu-form-group">
+				    <view class="title">时长</view>
+						<input style='text-align: right' type='number' name='week_time_length' value="{{week_todo[week_current_index].length}}"></input>
+						<view>分钟</view>
+					</view>
+					<view class="cu-form-group">
+						<input placeholder="便签内容" name='week_newtext' value='{{week_todo[week_current_index].context}}'></input>
+					</view>
+				</view>
+				<view class="cu-bar bg-white justify-end">
+					<view class="action">
+						<button class="cu-btn bg-grey" bindtap="hideModal">取消</button>
+						<button class="cu-btn bg-green margin-left" formType="submit" bindtap="hideModal">确定</button>
+						<button class="cu-btn bg-red margin-left" bindtap="week_delete">删除</button>
+					</view>
+				</view>
+			</form>
+		</view>
 	</view>
 
 	<view class="cu-modal {{modalName=='DialogModal2'?'show':''}}">
@@ -103,16 +185,27 @@
 					<text class="cuIcon-close text-red"></text>
 				</view>
 			</view>
-			<form bindsubmit="gettext">
+			<form bindsubmit="week_submit_todo">
 				<view class="padding-xl">
-					<view class="cu-form-group">
-						<view class="title">时间选择</view>
-						<picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="TimeChange">
-							<view class="picker"> {{time}} </view>
+				  <view class="cu-form-group">
+				    <view class="title">重复</view>
+						<picker bindchange="repeat_PickerChange" value="{{repeat_index}}" range="{{week_repeat_picker}}">
+						<view class="picker">{{week_repeat_picker[repeat_index]}}</view>
 						</picker>
 					</view>
 					<view class="cu-form-group">
-						<input placeholder="便签内容" name='newtext' value='{{text}}'></input>
+						<view class="title">开始时间</view>
+						<picker mode="time" value="{{week_starttime}}" start="00:00" end="23:59" bindchange="TimeChange">
+							<view class="picker"> {{week_starttime}} </view>
+						</picker>
+					</view>
+					<view class="cu-form-group">
+				    <view class="title">时长</view>
+						<input style='text-align: right' type='number' name='week_time_length' value='0'></input>
+						<view>分钟</view>
+					</view>
+					<view class="cu-form-group">
+						<input placeholder="便签内容" name='week_newtext' value='{{text}}'></input>
 					</view>
 				</view>
 				<view class="cu-bar bg-white justify-end">
