@@ -70,6 +70,20 @@
 					"id": -1,
 					"name": "packageC/pages/GD_recommend/GD_recommend",
 					"pathName": "packageC/pages/GD_recommend/GD_recommend",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/GD_shareGoods/GD_shareGoods",
+					"pathName": "packageA/pages/GD_shareGoods/GD_shareGoods",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageD/pages/GD_share_emulsion/GD_share_emulsion",
+					"pathName": "packageD/pages/GD_share_emulsion/GD_share_emulsion",
 					"scene": null
 				}
 			]

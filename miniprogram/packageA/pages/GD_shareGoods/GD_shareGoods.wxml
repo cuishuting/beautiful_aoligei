@@ -1,0 +1,6 @@
+<!--miniprogram/packageA/pages/GD_shareGoods/GD_shareGoods.wxml-->
+<text bindtap="goToEmulsion">我要推荐乳液</text>
+<text>我要推荐精华</text>
+<text>我要推荐眼霜</text>
+<text>我要推荐洗面奶</text>
+<text>我要推荐爽肤水</text>

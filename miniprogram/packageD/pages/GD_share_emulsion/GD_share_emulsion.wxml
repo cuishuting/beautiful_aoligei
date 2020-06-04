@@ -1,0 +1,24 @@
+<!--packageD/pages/GD_share_emulsion/GD_share_emulsion.wxml-->
+<text>乳液</text>
+<van-field
+    label="名称"
+    placeholder="请输入乳液名称（不超过15字）"
+    input-align="left"
+    value="{{emilsion_name}}"
+    bind:change="get_name"
+/>
+<van-field
+    label="价格"
+    placeholder="请输入乳液价格"
+    input-align="left"
+    value="{{emilsion_price}}"
+    bind:change="get_price"
+/>
+<van-radio-group value="{{skin_type}}" bind:change="chooseSkin">
+  <van-radio name="1">油性皮肤</van-radio>
+  <van-radio name="2">干性皮肤</van-radio>
+  <van-radio name="3">中性皮肤</van-radio>
+  <van-radio name="4">混合性皮肤</van-radio>
+</van-radio-group>
+<van-button icon="add-o" type="primary" bind:click="uploadImage">点击上传图片</van-button>
+<van-button icon="goods-collect-o" type="primary" bind:click="share">点击分享好物</van-button>

@@ -1,9 +1,12 @@
 <!--pages/GD_getPhoto/GD_getPhoto.wxml-->
-<van-button type="primary">按钮</van-button>
 <view class="padding">
   <button class="cu-btn block bg-black margin-tb-sm lg" bindtap="upLoadImage">点击获取测试皮肤</button>
+</view>
+<view class="padding">
+  <button class="cu-btn block bg-black margin-tb-sm lg" bindtap="shareGoods">点击分享好物</button>
 </view>
 <image src="{{imagePath}}"></image>
 <view class="padding">
   <button class="cu-btn block bg-black margin-tb-sm lg" bindtap="jumpToTestReport" hidden="{{TestReport}}">点击查看测试报告</button>
 </view>
+
