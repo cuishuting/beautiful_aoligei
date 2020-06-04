@@ -138,7 +138,7 @@ view{
 }
 .nowDay .date-head{
   width: 60rpx;
-  border-radius: 20%;
+  border-radius: 50%;
   text-align: center;
   color: #fff;
   background-color: #22A7F6;
@@ -183,19 +183,26 @@ view{
 }
 .font{
   font-size: 38rpx;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 
 .isRuleHide {
   opacity: 0;
 }
-.right{
+.btn-behind{
   position: absolute;
   right:40rpx;
 }
+.btn-right{
+  position: absolute;
+  right:120rpx;
+}
 .isclick {
   width: 60rpx;
-  border-radius: 20%;
+  border-radius: 50%;
   text-align: center;
   color: #fff;
   background-color: rgb(191, 191, 191);

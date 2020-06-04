@@ -2,19 +2,19 @@
 const db = wx.cloud.database();
 Page({
   data: {
-    tabNav:['今日待办','周计划','月计划'],
+    tabNav: ['今日待办', '周计划', '月计划'],
     delBtnWidth: 180, //删除按钮宽度单位（rpx）;
     //日计划数据
-    day_text:"",
-    TabCur:'',
+    day_text: "",
+    TabCur: '',
     day_todo_list: [],
     //月计划数据
-    isclick:false,
+    isclick: false,
     year: 0,
     month: 0,
     mydate: ['日', '一', '二', '三', '四', '五', '六'],
     date: "2020-05-01",
-    adddate:'',
+    adddate: '',
     dateArr: [],
     isToday: 0,
     isTodayWeek: false,
@@ -29,34 +29,35 @@ Page({
         text: "英语考试"
       },
       {
-        id: 2020531,
+        id: 202061,
         text: "小红花"
       }
     ],
+    clickdate: '',
     time: '12:01',
-    week_todo:[
+    week_todo: [
       {
         day: 1,
         start_time: 0,
         context: "睡觉",
-        length:6,
+        length: 6,
       },
       {
-        day:3,
+        day: 3,
         start_time: 10,
         context: "机器学习",
-        length:1.67,
+        length: 1.67,
       },
       {
-        day:1,
+        day: 1,
         start_time: 14,
-        context:"软件工程",
-        length:1.67,
+        context: "软件工程",
+        length: 1.67,
       }
     ]
   },
-   /*监听*/
-   onLoad: function () {
+  /*监听*/
+  onLoad: function () {
     let now = new Date();
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
@@ -67,31 +68,50 @@ Page({
       isToday: '' + year + month + now.getDate()
     })
     this.inquire_day_todo();
+    this.inquire_month_todo();
   },
 
-  inquire_day_todo:function(){
-    let day_todo=[];
+  inquire_day_todo: function () {
+    let day_todo = [];
     db.collection('Day_todo').where({
-      _openid : getApp().globalData.openid
+      _openid: getApp().globalData.openid
     })
-    .get({
-      success: res=> {
-        for(var i=0;i<res.data.length;i++)
-        {
-          day_todo.push({
-            txt: res.data[i].context,
-            is_finished: res.data[i].is_finished,
-            id: res.data[i]._id,
-            txtStyle:''
+      .get({
+        success: res => {
+          for (var i = 0; i < res.data.length; i++) {
+            day_todo.push({
+              txt: res.data[i].context,
+              is_finished: res.data[i].is_finished,
+              id: res.data[i]._id,
+              txtStyle: ''
+            })
+          }
+          this.setData({
+            day_todo_list: day_todo
           })
         }
-        this.setData({
-          day_todo_list: day_todo
-        })
-      }
-    });
+      });
   },
-  
+  inquire_month_todo: function () {
+    let month_todo = [];
+    db.collection('Month_todo').where({
+      _openid: getApp().globalData.openid
+    })
+      .get({
+        success: res => {
+          for (var i = 0; i < res.data.length; i++) {
+            month_todo.push({
+              text: res.data[i].context,
+              id: res.data[i]._id,
+              date_id: res.data[i].date_id
+            })
+          }
+          this.setData({
+            info: month_todo
+          })
+        }
+      });
+  },
   day_checkboxChange: function (e) {
     var index = e.currentTarget.dataset.index;
     var list = this.data.day_todo_list;
@@ -100,7 +120,7 @@ Page({
     list[index].is_finished = is
     db.collection('Day_todo').doc(id).update({
       data: {
-        is_finished:is
+        is_finished: is
       }
     });
     this.setData({
@@ -120,21 +140,21 @@ Page({
   backText: function (e) {
     var that = this
     let context = e.detail.value.add_text
-    if(context!=''){
+    if (context != '') {
       db.collection('Day_todo').add({
-        data:{
+        data: {
           context: context,
           is_finished: false,
         },
-        success: res=> {
+        success: res => {
           that.data.day_todo_list.push({
             txt: context,
             is_finished: false,
             id: res._id,
-            txtStyle:''
+            txtStyle: ''
           });
           this.setData({
-            day_text:'',
+            day_text: '',
             day_todo_list: that.data.day_todo_list
           });
         }
@@ -174,7 +194,7 @@ Page({
       this.setData({
         day_todo_list: list
       });
-      
+
     }
   },
 
@@ -228,51 +248,68 @@ Page({
       day_todo_list: list
     });
   },
-  
+
   tabSelect(e) {
-    var pagenum=e.currentTarget.dataset.id
+    var pagenum = e.currentTarget.dataset.id
     this.setData({
       TabCur: e.currentTarget.dataset.id,
     })
   },
-
+  To_dateid: function (mydate) {
+    var mydate1 = mydate.replace(/-/g, '');
+    console.log(mydate1)
+    mydate = mydate1
+    if (mydate1.charAt(6) == '0') {
+      mydate = mydate1.slice(0, 6) + mydate1.slice(-1)
+      console.log(mydate)
+    }
+    if (mydate1.charAt(4) == '0') {
+      mydate1 = mydate.slice(0, 4) + mydate.slice(5)
+      console.log(mydate1)
+    }
+    return mydate1
+  },
   gettext: function (e) {
     var that = this
     var newtext = e.detail.value.newtext;
     console.log(newtext)
-    var mydate=that.data.date
-    var mydate1 = mydate.replace(/-/g, '');
-    console.log(mydate1)
-    mydate=mydate1
-    if(mydate1.charAt(6)=='0')
-    {
-      mydate=mydate1.slice(0,6)+mydate1.slice(-1)
-      console.log(mydate)
-    }
-    if(mydate1.charAt(4)=='0')
-    {
-      mydate1=mydate.slice(0,4)+mydate.slice(5)
-      console.log(mydate1)
-    }
-    var addtext={
-      id:mydate1,
-      text:newtext
+    var mydate = that.data.date
+    var mydate1 = this.To_dateid(mydate)
+    db.collection('Month_todo').add({
+      data: {
+        context: newtext,
+        date_id: mydate1,
+      },
+      success: res => {
+        that.data.info.push({
+          id: res._id,
+          text: newtext,
+          date_id: mydate1
+        });
+        this.setData({
+          info: that.data.info
+        });
+      }
+    });
+    var addtext = {
+      id: mydate1,
+      text: newtext
     }
     that.data.info.push(addtext)
     console.log(addtext)
     that.setData({
       text: '',
-      info:that.data.info
+      info: that.data.info
     });
   },
 
-//选择框函数
-DateChange(e) {
-  this.setData({
-    date: e.detail.value
-  })
-  console.log(this.data.date)
-},
+  //选择框函数
+  DateChange(e) {
+    this.setData({
+      date: e.detail.value
+    })
+    console.log(this.data.date)
+  },
 
   dateInit: function (setYear, setMonth) {
     //全部时间的月份都是按0~11基准，显示月份才+1
@@ -356,26 +393,30 @@ DateChange(e) {
   mytap: function (e) {
     var mydate = e.currentTarget.dataset.date
     var that = this
+    that.setData({
+      clickdate: mydate
+    })
     var arr = that.data.info;
     var i = 0
-    var len=arr.length
-    for (i=0; i < len; i++) {
-      if (arr[i].id == mydate)
-      {
+    var len = arr.length
+    console.log(len)
+    for (i = 0; i < len; i++) {
+      console.log(arr[i])
+      if (arr[i].date_id == mydate) {
         that.setData({
           usertext: arr[i].text,
-          isclick:mydate
+          isclick: mydate
         })
+        console.log(that.data.usertext)
         break
       }
     }
-    if (i==len)
-    that.setData({
-      usertext: "还没有添加内容",
-      editTrue: true,
-      isclick:mydate
-    })
-    console.log()
+    if (i == len)
+      that.setData({
+        usertext: "还没有添加内容",
+        editTrue: true,
+        isclick: mydate
+      })
   },
 
   hidebut: function () {
@@ -391,4 +432,47 @@ DateChange(e) {
       time: e.detail.value
     })
   },
+  cal_edit: function (e) {
+    var that = this
+    var edittext = e.detail.value.edittext;
+    var editdate = that.data.clickdate
+    var arr = that.data.info;
+    var i = 0
+    var len = arr.length
+    for (i = 0; i < len; i++) {
+      if (arr[i].date_id == editdate) {
+        var id = arr[i].id
+        var playStatus = "info[" + i + "].text";
+        that.setData({
+          [playStatus]: edittext,
+          text:''
+        })
+        break
+      }
+    }
+    db.collection('Month_todo').doc(id).update({
+      data: {
+        context: edittext
+      }
+    });
+  },
+  cal_delete: function () {
+    var that = this
+    var arr = that.data.info;
+    var i = 0
+    var len = arr.length
+    var list = that.data.info
+    for (i = 0; i < len; i++) {
+      if (arr[i].date_id == that.data.clickdate) {
+        var id = arr[i].id
+        db.collection('Month_todo').doc(id).remove();
+        list.splice(i, 1);
+        this.setData({
+          info: list
+        });
+        break
+      }
+    }
+    that.hideModal()
+  }
 })
