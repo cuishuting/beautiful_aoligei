@@ -1,101 +1,101 @@
 <!--miniprogram/pages/GD_plan/GD_plan.wxml-->
 <scroll-view scroll-x class="bg-white nav text-center">
- <view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{tabNav}}" wx:key bindtap='tabSelect' data-id="{{index}}">
-    {{tabNav[index]}}
-  </view>
+	<view class="cu-item {{index==TabCur?'text-blue cur':''}}" wx:for="{{tabNav}}" wx:key bindtap='tabSelect' data-id="{{index}}">
+		{{tabNav[index]}}
+	</view>
 </scroll-view>
 <block wx:if="{{TabCur==0}}">
-<view class="flex padding justify-center">
-	<view class="margin-xs radius">
-		<view class="cu-capsule round">
-			<view class="cu-tag bg-blue ">
-				<text class="cuIcon-likefill"></text>
-			</view>
-			<view class="cu-tag line-blue todaytodo_size">
-				今日事今日毕
-			</view>
-		</view>
-		<view bindtap="showModal" data-target="DialogModal1">
-			<text class="cuIcon-add lg padding xl text-blue add_dayplan_position">
-			</text>
-		</view>
-		<view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
-			<view class="cu-dialog">
-				<view class="cu-bar bg-white justify-end">
-					<view class="content style">新加便签</view>
-					<view class="action" bindtap="hideModal">
-						<text class="cuIcon-close text-red"></text>
-					</view>
+	<view class="flex padding justify-center">
+		<view class="margin-xs radius">
+			<view class="cu-capsule round">
+				<view class="cu-tag bg-blue ">
+					<text class="cuIcon-likefill"></text>
 				</view>
-				<form bindsubmit="backText">
-					<view class="padding-xl">
-						<input placeholder="便签内容" name='add_text' value='{{day_text}}'></input>
-					</view>
+				<view class="cu-tag line-blue todaytodo_size">
+					今日事今日毕
+				</view>
+			</view>
+			<view bindtap="showModal" data-target="DialogModal1">
+				<text class="cuIcon-add lg padding xl text-blue add_dayplan_position">
+			</text>
+			</view>
+			<view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
+				<view class="cu-dialog">
 					<view class="cu-bar bg-white justify-end">
-						<view class="action">
-							<button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
-							<button class="cu-btn bg-green margin-left" formType="submit" bindtap="hideModal">确定</button>
+						<view class="content style">新加便签</view>
+						<view class="action" bindtap="hideModal">
+							<text class="cuIcon-close text-red"></text>
 						</view>
 					</view>
-				</form>
+					<form bindsubmit="backText">
+						<view class="padding-xl">
+							<input placeholder="便签内容" name='add_text' value='{{day_text}}'></input>
+						</view>
+						<view class="cu-bar bg-white justify-end">
+							<view class="action">
+								<button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+								<button class="cu-btn bg-green margin-left" formType="submit" bindtap="hideModal">确定</button>
+							</view>
+						</view>
+					</form>
+				</view>
 			</view>
 		</view>
 	</view>
-</view>
 
-<view class="item-box">
-	<view class="items">
-		<checkbox-group >
-			<view wx:for="{{day_todo_list}}" wx:key="{{index}}" class="item">
-				<view bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}"  style="{{item.txtStyle}}; {{item.is_finished==true?'color:grey;text-decoration:line-through;':'color:black'}}"  class="inner txt text">
-					<checkbox value="{{item.txt}}" bindtap="day_checkboxChange" data-index="{{index}}" checked="{{item.is_finished}}" />
-					{{item.txt}}</view>
-				<view data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
-			</view>
-		</checkbox-group>
+	<view class="item-box">
+		<view class="items">
+			<checkbox-group>
+				<view wx:for="{{day_todo_list}}" wx:key="{{index}}" class="item">
+					<view bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.txtStyle}}; {{item.is_finished==true?'color:grey;text-decoration:line-through;':'color:black'}}" class="inner txt text">
+						<checkbox value="{{item.txt}}" bindtap="day_checkboxChange" data-index="{{index}}" checked="{{item.is_finished}}" />
+						{{item.txt}}</view>
+					<view data-index="{{index}}" bindtap="delItem" class="inner del">删除</view>
+				</view>
+			</checkbox-group>
+		</view>
 	</view>
-</view>
 </block>
 
 
 
 <block wx:if="{{TabCur==1}}">
-  <view class="flex padding justify-center">
-	  <view class="margin-xs radius">
-		  <view class="cu-capsule round">
-			  <view class="cu-tag bg-blue ">
-				  <text class="cuIcon-likefill"></text>
-			  </view>
-			  <view>
-				  <text class="cu-tag line-blue todaytodo_size">开启规律生活</text>
+	<view class="flex padding justify-center">
+		<view class="margin-xs radius">
+			<view class="cu-capsule round">
+				<view class="cu-tag bg-blue ">
+					<text class="cuIcon-likefill"></text>
 				</view>
-        <view bindtap="showModal" data-target="DialogModal2">
-			    <text class="cuIcon-add lg padding xl text-blue add_dayplan_position">
+				<view>
+					<text class="cu-tag line-blue todaytodo_size">开启规律生活</text>
+				</view>
+				<view bindtap="showModal" data-target="DialogModal2">
+					<text class="cuIcon-add lg padding xl text-blue add_dayplan_position">
 			    </text>
-		    </view>
-		  </view>
-  	</view>
-  </view>
+				</view>
+			</view>
+		</view>
+	</view>
 
-  <view class="week-top">
-    <view wx:for="{{7}}" class="top-text" wx:key="{{index}}">
-      <view class='week-top-text'>
-        <view>{{index+1}}</view>
-      </view>
-    </view>
-  </view>
+	<view class="week-top">
+		<view wx:for="{{7}}" class="top-text" wx:key="{{index}}">
+			<view class='week-top-text'>
+				<view>{{index+1}}</view>
+			</view>
+		</view>
+	</view>
 
-  <view wx:for="{{24}}" wx:key="{{time_index}}">
-	  <view class='left_time'>
-		  <view>{{index}}</view>
+	<view wx:for="{{24}}" wx:key="{{time_index}}">
+		<view class='left_time'>
+			<view>{{index}}</view>
 		</view>
 	</view>
 
 	<view wx:for="{{week_todo}}" wx:key="{{index}}">
-	  <view style="height:{{week_todo[index].length*100}}rpx; top:{{week_todo[index].start_time*100+313}}rpx; left:{{(week_todo[index].day-1)*13.14+8}}%" class="week_todo">{{week_todo[index].context}}</view>
+		<view style="height:{{week_todo[index].length*100}}rpx; top:{{week_todo[index].start_time*100+313}}rpx; left:{{(week_todo[index].day-1)*13.14+8}}%" class="week_todo">{{week_todo[index].context}}</view>
 	</view>
 
-  <view class="cu-modal {{modalName=='DialogModal2'?'show':''}}">
+	<view class="cu-modal {{modalName=='DialogModal2'?'show':''}}">
 		<view class="cu-dialog">
 			<view class="cu-bar bg-white justify-end">
 				<view class="content">新加周计划</view>
@@ -106,11 +106,11 @@
 			<form bindsubmit="gettext">
 				<view class="padding-xl">
 					<view class="cu-form-group">
-		        <view class="title">时间选择</view>
-		        <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="TimeChange">
-			        <view class="picker"> {{time}} </view>
-		        </picker>
-	        </view>
+						<view class="title">时间选择</view>
+						<picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="TimeChange">
+							<view class="picker"> {{time}} </view>
+						</picker>
+					</view>
 					<view class="cu-form-group">
 						<input placeholder="便签内容" name='newtext' value='{{text}}'></input>
 					</view>
@@ -129,85 +129,130 @@
 
 
 <block wx:if="{{TabCur==2}}">
-<view class='wrap'>
-	<view>
-		<view class='date-show'>
-			<view class='lt-arrow' bindtap='lastMonth'>
-				<text class="cuIcon-pullleft lg text-gray"></text>
-			</view>
-			{{year}}年{{month}}月
-			<view class='rt-arrow' bindtap='nextMonth'>
-				<text class="cuIcon-pullright lg text-gray"></text>
-			</view>
-		</view>
-	</view>
-
-	<view class='header'>
-		<view wx:for='{{mydate}}' class='{{(index == todayIndex) && isTodayWeek ? "weekMark" : ""}}'>{{item}}
-			<view></view>
-		</view>
-	</view>
-
-	<view class='date-box'>
-		<view wx:for='{{dateArr}}' class='{{isToday == item.isToday ? "nowDay" : ""}} {{isclick==item.isToday?"isclick":""}}' style="background-color:{{score}};" data-date="{{item.isToday}}" bindtap='mytap'>
-			<view class='date-head'>
-				{{item.dateNum}}
-			</view>
-		</view>
-	</view>
-
-	<view class="cu-modal {{modalName=='DialogModal3'?'show':''}}">
-		<view class="cu-dialog">
-			<view class="cu-bar bg-white justify-end">
-				<view class="content">记事</view>
-				<view class="action" bindtap="hideModal">
-					<text class="cuIcon-close text-red"></text>
+	<view class='wrap'>
+		<view>
+			<view class='date-show'>
+				<view class='lt-arrow' bindtap='lastMonth'>
+					<text class="cuIcon-pullleft lg text-gray"></text>
+				</view>
+				{{year}}年{{month}}月
+				<view class='rt-arrow' bindtap='nextMonth'>
+					<text class="cuIcon-pullright lg text-gray"></text>
 				</view>
 			</view>
-			<form bindsubmit="gettext">
+		</view>
+
+		<view class='header'>
+			<view wx:for='{{mydate}}' class='{{(index == todayIndex) && isTodayWeek ? "weekMark" : ""}}'>{{item}}
+				<view></view>
+			</view>
+		</view>
+
+		<view class='date-box'>
+			<view wx:for='{{dateArr}}' class='{{isToday == item.isToday ? "nowDay" : ""}} {{isclick==item.isToday?"isclick":""}}' style="background-color:{{score}};" data-date="{{item.isToday}}" bindtap='mytap'>
+				<view class='date-head'>
+					{{item.dateNum}}
+				</view>
+			</view>
+		</view>
+
+		<view class="cu-modal {{modalName=='DialogModal3'?'show':''}}">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">记事</view>
+					<view class="action" bindtap="hideModal">
+						<text class="cuIcon-close text-red"></text>
+					</view>
+				</view>
+				<form bindsubmit="gettext">
+					<view class="padding-xl">
+						<view class="cu-form-group">
+							<view class="title">日期选择</view>
+							<picker mode="date" value="{{date}}" start="2020-01-01" end="2021-09-01" bindchange="DateChange">
+								<view class="picker">
+									{{date}}
+								</view>
+							</picker>
+						</view>
+						<view class="cu-form-group">
+							<input placeholder="便签内容" name='newtext' value='{{text}}'></input>
+						</view>
+					</view>
+					<view class="cu-bar bg-white justify-end">
+						<view class="action">
+							<button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+							<button class="cu-btn bg-green margin-left" formType="submit" bindtap="hideModal">确定</button>
+						</view>
+					</view>
+				</form>
+			</view>
+		</view>
+
+		<!--card 便签内容-->
+		<view class="cu-card dynamic {{isCard?'no-card':''}} delete {{editTrue?'':'isRuleHide'}}">
+			<view class="cu-item shadow bg-gray">
+				<view class="cu-list menu-avatar" style="height:60rpx">
+					<button class="cuIcon-close text-gray cu-btn" style="width:60rpx;height:50rpx" bindtap="hidebut">
+					</button>
+				</view>
+				<view style="height:180rpx">
+					<text class="font">
+					{{usertext}}</text>
+					<button class="cuIcon-write text-write cu-btn btn-right" style="width:60rpx" bindtap="showModal" data-target="DialogModal4"></button>
+					<button class="cuIcon-deletefill text-write cu-btn btn-behind" style="width:60rpx" bindtap="showModal" data-target="DialogModal5"></button>
+				</view>
+				<!--<view class="text-gray text-sm text-right padding">
+					<text class="cuIcon-favor text-gray margin-left font"></text>
+				</view>-->
+			</view>
+		</view>
+
+		<view class="cu-modal {{modalName=='DialogModal4'?'show':''}}">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">修改便签</view>
+					<view class="action" bindtap="hideModal">
+						<text class="cuIcon-close text-red"></text>
+					</view>
+				</view>
+				<form bindsubmit="cal_edit">
+					<view class="padding-xl">
+						<view class="cu-form-group">
+							<input placeholder="修改便签" name='edittext' value='{{usertext}}'></input>
+						</view>
+					</view>
+					<view class="cu-bar bg-white justify-end">
+						<view class="action">
+							<button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+							<button class="cu-btn bg-green margin-left" formType="submit" bindtap="hideModal">确定</button>
+						</view>
+					</view>
+				</form>
+			</view>
+		</view>
+
+		<view class="cu-modal {{modalName=='DialogModal5'?'show':''}}">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">提醒</view>
+					<view class="action" bindtap="hideModal">
+						<text class="cuIcon-close text-red"></text>
+					</view>
+				</view>
 				<view class="padding-xl">
-					<view class="cu-form-group">
-						<view class="title">日期选择</view>
-						<picker mode="date" value="{{date}}" start="2020-01-01" end="2021-09-01" bindchange="DateChange">
-							<view class="picker">
-								{{date}}
-							</view>
-						</picker>
-					</view>
-					<view class="cu-form-group">
-						<input placeholder="便签内容" name='newtext' value='{{text}}'></input>
-					</view>
+					点击确认删除该日全部便签，点击取消取消删除
 				</view>
 				<view class="cu-bar bg-white justify-end">
 					<view class="action">
 						<button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
-						<button class="cu-btn bg-green margin-left" formType="submit" bindtap="hideModal">确定</button>
+						<button class="cu-btn bg-green margin-left" bindtap="cal_delete">确定</button>
 					</view>
 				</view>
-			</form>
-		</view>
-	</view>
-
-	<!--card 便签内容-->
-	<view class="cu-card dynamic {{isCard?'no-card':''}} delete {{editTrue?'':'isRuleHide'}}" >
-		<view class="cu-item shadow bg-gray">
-			<view class="cu-list menu-avatar">
-		<button class="cuIcon-close text-gray cu-btn" style="width:60rpx" bindtap="hidebut">
-		</button>
-			</view>
-			<view class="text-content">
-				<text class="font">
-				{{usertext}}</text>
-				<button class="cuIcon-write text-write cu-btn right" style="width:60rpx" bindtap="edit"></button>
-			</view>
-			<view class="text-gray text-sm text-right padding">
-				<text class="cuIcon-favor text-gray margin-left font"></text>
 			</view>
 		</view>
-	</view>
 
-	<view class="add_monthplan_position" bindtap="showModal" data-target="DialogModal3">
-		<text class="cuIcon-roundadd text-gray add_monthplan_size"></text>
+		<view class="add_monthplan_position" bindtap="showModal" data-target="DialogModal3">
+			<text class="cuIcon-roundadd text-gray add_monthplan_size"></text>
+		</view>
 	</view>
-</view>
-</block> 
+</block>
