@@ -275,10 +275,12 @@ Page({
       }
     });
     var playStatus = "dateArr["+that.data.cal_index+"].ishas";
+    var playtext = "dateArr["+that.data.cal_index+"].caltext";
     that.setData({
       text: '',
       usertext: newtext,
-      [playStatus]:true
+      [playStatus]:true,
+      [playtext]:newtext
     });
     console.log(that.data.dateArr[that.data.cal_index].ishas)
   },
@@ -322,12 +324,12 @@ Page({
     var ifhas=false
     var Today
     var num_list=[]//存储info列表中和当前相同月份的索引值
+    var cal_text="还没有添加内容哦"
     for (var j = 0; j < len; j++) { 
       if (arr[j].month==''+(month+1)||arr[j].month=='0'+(month+1)) {
         num_list.push(j)
       }
     }
-    console.log(that.data.info.length)
     for (let i = 0; i < arrLen; i++) {
       if (i >= startWeek) {
         num = i - startWeek + 1;
@@ -340,16 +342,21 @@ Page({
         if(arr[num_list[m]].date_id==Today)
         {
           ifhas=true
+          cal_text=arr[num_list[m]].text
           break
         }
       }
       if(m==num_list.length)
-        ifhas=false
+          {
+            ifhas=false
+            cal_text="还没有添加内容哦"
+          }
           obj = {
             isToday: Today,
             dateNum: num,
             weight: 5,
-            ishas:ifhas
+            ishas:ifhas,
+            caltext:cal_text
         }
         }
        else {
@@ -412,23 +419,14 @@ Page({
       clickdate: mydate,
       cal_index: myindex
     })
-    var arr = that.data.info;
-    var i = 0
-    var len = arr.length
-    for (i = 0; i < len; i++) {
-      if (arr[i].date_id == mydate) {
-        that.setData({
-          usertext: arr[i].text,
-          isclick: mydate
-        })
-        break
-      }
-    }
-    if (i == len)
       that.setData({
-        usertext: "还没有添加内容",
+        usertext: that.data.dateArr[that.data.cal_index].caltext,
+        isclick: mydate,
+      })
+      console.log(that.data.usertext)
+      if(that.data.usertext=="还没有添加内容哦")
+      that.setData({
         editTrue: true,
-        isclick: mydate
       })
   },
 
@@ -442,7 +440,7 @@ Page({
   },
   TimeChange(e) {
     this.setData({
-      week_starttime: e.detail.value
+      time: e.detail.value
     })
   },
   cal_edit: function (e) {
@@ -453,7 +451,7 @@ Page({
     var i = 0
     var len = arr.length
     var temp=that.data.usertext
-    if(temp=="还没有添加内容"){
+    if(temp=="还没有添加内容哦"){
       that.cal_add(edittext,editdate)
       console.log(that.data.info)
     }
@@ -475,7 +473,11 @@ Page({
         }
       });
     }
-    
+    var playtext = "dateArr["+that.data.cal_index+"].caltext";
+    that.setData({
+      [playtext]:edittext,
+      usertext:edittext
+    });
   },
   cal_delete: function () {
     var that = this
@@ -494,7 +496,13 @@ Page({
         break
       }
     }
-    that.data.dateArr[that.data.cal_index].ishas=false
+    var playStatus = "dateArr["+that.data.cal_index+"].ishas";
+    var playtext = "dateArr["+that.data.cal_index+"].caltext";
+    that.setData({
+      [playStatus]:false,
+      [playtext]:"还没有添加内容哦",
+      usertext:"还没有添加内容哦"
+    });
     that.hideModal()
   },
   //周计划函数
