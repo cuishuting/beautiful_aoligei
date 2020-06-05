@@ -3,8 +3,8 @@
 	<view class="cu-item {{0==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="0">
 		<text class="cuIcon-favor lg" bindtap="facialFoam">洗面奶</text>
 	</view>
-	<view class="cu-item {{1==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="1">
-		<text class="cuIcon-discover lg" bindtap="eyeCream">眼霜</text>
+	<view class="cu-item {{1==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="1" > 
+		<text class="cuIcon-discover lg" bindtap="eyeCream" >眼霜</text> 
 	</view>
 	<view class="cu-item {{2==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="2">
 		<text class="cuIcon-like lg" bindtap="Essence">精华</text>
@@ -30,6 +30,10 @@
 </van-card>
 <view hidden="{{show_pic}}" class="out_pic">
 		<image src="../../../images/noEyeProNote.png"  class="pic"></image>
+</view>
+<view hidden="{{show_pic}}" class="out_pic">
+		<image src="../../../images/noEyeProNote.png"  class="pic"></image>
+
 </view>
 <van-card wx:for="{{list2}}" wx:if="{{TabCur==2}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}">
 	<view slot="footer">

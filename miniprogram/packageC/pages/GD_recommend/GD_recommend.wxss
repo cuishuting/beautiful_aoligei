@@ -1,1 +1,12 @@
 /* packageC/pages/GD_recommend/GD_recommend.wxss */
+.pic {
+  
+  border-radius: 50%;
+  height: 500rpx;
+  width: 500rpx;
+}
+.out_pic {
+  padding-top: 50%;
+  display: table-cell;
+  text-align: center;
+}

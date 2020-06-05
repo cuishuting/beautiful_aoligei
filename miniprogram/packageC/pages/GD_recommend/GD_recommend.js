@@ -25,6 +25,9 @@ Page({
     eye_pouch: 0, //0无眼袋 1有眼袋
     dark_circle: 0,//0无黑眼圈， 1有黑眼圈
     eye_finelines: 0, //0无眼部细纹 1有眼部细纹
+    haveEyeProblem: true, //有无眼部问题
+    eye_problem_list: [], //眼部问题的列表
+    show_pic: true, //用于证明是否存在眼部问题
   }, 
   tabSelect(e) {
     this.setData({
@@ -75,6 +78,28 @@ Page({
         });
         break;
     }
+    var problem_list = [];
+    if (that.data.eye_finelines == 1) {
+      problem_list.push("eye_finelines");
+      that.setData({
+        haveEyeProblem: false,
+      });
+    }
+    if (that.data.eye_pouch == 1) {
+      problem_list.push("eye_pouch");
+      that.setData({
+        haveEyeProblem: false,
+      });
+    }
+    if (that.data.dark_circle == 1) {
+      problem_list.push("dark_circle");
+      that.setData({
+        haveEyeProblem: false,
+      });
+    }
+    that.setData({
+      eye_problem_list: problem_list,
+    })
     // console.log("皮肤类型");
     // console.log(that.data.skin_type_str);
   },
@@ -88,7 +113,10 @@ Page({
   facialFoam: function() {
     console.log("faicialFoam被触发啦");
     var that = this;
-    var facial_foam = 0; //精华的数量
+    that.setData({
+      show_pic:true,
+    })
+    var facial_foam = 0; //洗面奶的数量
     const db = wx.cloud.database();
     db.collection('facial_foam').where({
       skintype: that.data.skin_type_str
@@ -125,47 +153,36 @@ Page({
     });
   },
   eyeCream: function() {
-    console.log("eyeCream被触发啦");
     var that = this;
-    var problem_list = [];
-    if (that.data.eye_finelines == 1) {
-      problem_list.push("eye_finelines");
+    if (that.data.haveEyeProblem) {
+      that.setData({
+        show_pic: false,
+      })
     }
-    else if (that.data.eye_pouch == 1) {
-      problem_list.push("eye_pouch");
-    }
-    else if (that.data.dark_circle == 1) {
-      problem_list.push("dark_circle");
-    }
-    else {
-      
-    }
-    console.log("eye_prolem_list:");
-    console.log(problem_list);
+    that.setData({
+      list1: []
+    })
+    console.log("eyeCream被触发啦");
+    var problem_list = that.data.eye_problem_list;
     const db = wx.cloud.database();
-    var eye_cream_list = [];
+    
     const _ = db.command;
     for (var i = 0; i < problem_list.length; i++) {
-      console.log("*************");
-      console.log(problem_list[i]);
-      console.log("*************");
       var cur_eye_cream_num = 0; //当前种类眼霜的个数
       db.collection('eye_cream').where({
         eye_problem: _.eq(problem_list[i])
       }).count().then(res => {
         cur_eye_cream_num = res.total;
       });
-      console.log(problem_list[i]);
-      console.log("当前问题的眼霜的个数");
-      console.log(cur_eye_cream_num);
       db.collection('eye_cream').where({
         eye_problem: _.eq(problem_list[i])
       }).get({
         success: function(res) {
-          console.log(problem_list[i]);
-          console.log("res.data");
+          console.log("当前眼部问题的返回结果");
           console.log(res.data);
+          console.log(cur_eye_cream_num);
           for (var j = 0; j < cur_eye_cream_num; j++) {
+            var eye_cream_list = [];
             var cur_eye_cream = {
               name: "",
               picture: "",
@@ -174,18 +191,33 @@ Page({
             cur_eye_cream.name = res.data[j].name;
             cur_eye_cream.picture = res.data[j].image;
             cur_eye_cream.cost = res.data[j].price;
+            console.log("当前眼霜：");
+            console.log(cur_eye_cream);
             eye_cream_list.push(cur_eye_cream);
           }
+          that.setData({
+            list1: that.data.list1.concat(eye_cream_list),
+          })
         }
       })
+      console.log("eye_cream_list");
+      console.log(eye_cream_list);
+      that.setData({
+        list1: that.data.list1.concat(eye_cream_list),
+      })
+      console.log("list1");
+      console.log(that.data.list1);
     }
-    that.setData({
-      list1: eye_cream_list,
-    })
+    
   },
+
+
   Essence: function() {
     console.log("Essence被触发啦");
     var that = this;
+    that.setData({
+      show_pic:true,
+    })
     var essence = 0; //精华的数量
     const db = wx.cloud.database();
     db.collection('essence').where({
@@ -224,6 +256,9 @@ Page({
   },
   Emulsion: function() {
     var that = this;
+    that.setData({
+      show_pic:true,
+    })
     console.log("emulsion被触发啦");
     var emulsion = 0; //乳液的数量
     const db = wx.cloud.database();
@@ -258,6 +293,9 @@ Page({
   }, 
   Lotion: function() {
     var that = this;
+    that.setData({
+      show_pic:true,
+    })
     console.log("Lotion被触发啦");
     var lotion = 0; //乳液的数量
     const db = wx.cloud.database();

@@ -11,7 +11,11 @@ Page({
     base64_photo: "",
     TestReport: true,
   },
-
+  shareGoods: function() {
+    wx.navigateTo({
+      url: '../GD_shareGoods/GD_shareGoods',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

@@ -3,6 +3,7 @@
 	"cloudfunctionRoot": "cloudfunctions/",
 	"setting": {
 		"urlCheck": false,
+		"es6": true,
 		"enhance": true,
 		"postcss": true,
 		"preloadBackgroundData": false,

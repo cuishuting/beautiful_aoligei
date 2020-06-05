@@ -1,36 +1,20 @@
 // pages/day/day.js
+const db = wx.cloud.database();
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    tabNav:['今日待办','周计划','月计划'],
+    tabNav: ['今日待办', '周计划', '月计划'],
     delBtnWidth: 180, //删除按钮宽度单位（rpx）;
     //日计划数据
-    day_text:'',
-    TabCur:'',
-    list: [
-      {
-        txtStyle: "",
-        txt: "物理作业"
-      },
-      {
-        txtStyle: "",
-        txt: "化学作业"
-      },
-      {
-        txtStyle: "",
-        txt: "生物作业"
-      },
-    ],
+    day_text: "",
+    TabCur: '',
+    day_todo_list: [],
     //月计划数据
-    isclick:false,
+    isclick: false,
     year: 0,
     month: 0,
     mydate: ['日', '一', '二', '三', '四', '五', '六'],
     date: "2020-05-01",
-    adddate:'',
+    adddate: '',
     dateArr: [],
     isToday: 0,
     isTodayWeek: false,
@@ -45,48 +29,90 @@ Page({
         text: "英语考试"
       },
       {
-        id: 2020531,
+        id: 202061,
         text: "小红花"
       }
     ],
-    time: '12:01',
-    week_todo:[
-      {
-        day: 1,
-        start_time: 0,
-        context: "睡觉",
-        length:6,
-      },
-      {
-        day:3,
-        start_time: 10,
-        context: "机器学习",
-        length:1.67,
-      },
-      {
-        day:1,
-        start_time: 14,
-        context:"软件工程",
-        length:1.67,
-      }
-    ]
+    clickdate: '',
+    week_starttime: '12:00',
+    week_todo: [],
+    repeat_index:0,
+    week_repeat_picker:['每天','周一','周二','周三','周四','周五','周六','周日'],
+    week_current_index :'',
+    week_current_repeat :'',
+    week_current_start_time: ''
   },
-  checkboxChange: function (e) {
-    var temp1 = e.detail.value
-    var temp2 = ''
-    console.log(temp1)
-    if (temp1.length != 0) {
-      for (var i = 0, len = temp1.length; i < len; i++) {
-        temp2 = temp2 + temp1[i] + ','
+  /*监听*/
+  onLoad: function () {
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    this.dateInit();
+    this.setData({
+      year: year,
+      month: month,
+      isToday: '' + year + month + now.getDate()
+    })
+    this.inquire_day_todo();
+    this.inquire_month_todo();
+    this.inquire_week_todo();
+  },
+
+  inquire_day_todo: function () {
+    let day_todo = [];
+    db.collection('Day_todo').where({
+      _openid: getApp().globalData.openid
+    })
+      .get({
+        success: res => {
+          for (var i = 0; i < res.data.length; i++) {
+            day_todo.push({
+              txt: res.data[i].context,
+              is_finished: res.data[i].is_finished,
+              id: res.data[i]._id,
+              txtStyle: ''
+            })
+          }
+          this.setData({
+            day_todo_list: day_todo
+          })
+        }
+      });
+  },
+  inquire_month_todo: function () {
+    let month_todo = [];
+    db.collection('Month_todo').where({
+      _openid: getApp().globalData.openid
+    })
+      .get({
+        success: res => {
+          for (var i = 0; i < res.data.length; i++) {
+            month_todo.push({
+              text: res.data[i].context,
+              id: res.data[i]._id,
+              date_id: res.data[i].date_id
+            })
+          }
+          this.setData({
+            info: month_todo
+          })
+        }
+      });
+  },
+  day_checkboxChange: function (e) {
+    var index = e.currentTarget.dataset.index;
+    var list = this.data.day_todo_list;
+    var id = list[index].id
+    var is = !(list[index].is_finished)
+    list[index].is_finished = is
+    db.collection('Day_todo').doc(id).update({
+      data: {
+        is_finished: is
       }
-      /*this.setData({
-       text:'您选择了：'+temp2
-      })*/
-    } else {
-      /*this.setData({
-       text:''
-      })*/
-    }
+    });
+    this.setData({
+      day_todo_list: list
+    });
   },
   showModal(e) {
     this.setData({
@@ -99,19 +125,26 @@ Page({
     })
   },
   backText: function (e) {
-    var that = this;
-    var add_text = e.detail.value.add_text;
-    console.log(add_text);
-    if (add_text != '') {
-      var add_list = {
-        txtStyle: "",
-        txt: add_text
-      }
-      that.data.list.push(add_list)
-      console.log(that.data.list)
-      that.setData({
-        list: that.data.list,
-        day_text:''
+    var that = this
+    let context = e.detail.value.add_text
+    if (context != '') {
+      db.collection('Day_todo').add({
+        data: {
+          context: context,
+          is_finished: false,
+        },
+        success: res => {
+          that.data.day_todo_list.push({
+            txt: context,
+            is_finished: false,
+            id: res._id,
+            txtStyle: ''
+          });
+          this.setData({
+            day_text: '',
+            day_todo_list: that.data.day_todo_list
+          });
+        }
       });
     }
   },
@@ -142,12 +175,13 @@ Page({
       }
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
-      var list = this.data.list;
+      var list = this.data.day_todo_list;
       list[index].txtStyle = txtStyle;
       //更新列表的状态
       this.setData({
-        list: list
+        day_todo_list: list
       });
+
     }
   },
 
@@ -162,12 +196,11 @@ Page({
       var txtStyle = disX > delBtnWidth / 2 ? "left:-" + delBtnWidth + "px" : "left:0px";
       //获取手指触摸的是哪一项
       var index = e.target.dataset.index;
-      console.log(index);
-      var list = this.data.list;
+      var list = this.data.day_todo_list;
       list[index].txtStyle = txtStyle;
       //更新列表的状态
       this.setData({
-        list: list
+        day_todo_list: list
       });
     }
   },
@@ -177,7 +210,6 @@ Page({
     try {
       var res = wx.getSystemInfoSync().windowWidth;
       var scale = (750 / 2) / (w / 2); //以宽度750px设计稿做宽度的自适应
-      // console.log(scale);
       real = Math.floor(res / scale);
       return real;
     } catch (e) {
@@ -195,147 +227,75 @@ Page({
   delItem: function (e) {
     //获取列表中要删除项的下标
     var index = e.target.dataset.index;
-    var list = this.data.list;
-    //移除列表中下标为index的项
+    var list = this.data.day_todo_list;
+    var id = list[index].id
+    db.collection('Day_todo').doc(id).remove();
     list.splice(index, 1);
-    //更新列表的状态
     this.setData({
-      list: list
+      day_todo_list: list
     });
   },
-  //测试临时数据
-  checkboxChange: function (e) {
-    var temp1 = e.detail.value;
-    var temp2 = ''
-    console.log(temp1)
-    if (temp1.length != 0) {
-      for (var i = 0, len = temp1.length; i < len; i++) {
-        temp2 = temp2 + temp1[i] + ','
-      }
-      /*this.setData({
-       text:'您选择了：'+temp2
-      })*/
-    } else {
-      /*this.setData({
-       text:''
-      })*/
-    }
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
-    this.initEleWidth();
-    
-  },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
   tabSelect(e) {
-    var pagenum=e.currentTarget.dataset.id
+    var pagenum = e.currentTarget.dataset.id
     this.setData({
       TabCur: e.currentTarget.dataset.id,
     })
   },
-
-
-
+  To_dateid: function (mydate) {
+    var mydate1 = mydate.replace(/-/g, '');
+    console.log(mydate1)
+    mydate = mydate1
+    if (mydate1.charAt(6) == '0') {
+      mydate = mydate1.slice(0, 6) + mydate1.slice(-1)
+      console.log(mydate)
+    }
+    if (mydate1.charAt(4) == '0') {
+      mydate1 = mydate.slice(0, 4) + mydate.slice(5)
+      console.log(mydate1)
+    }
+    return mydate1
+  },
   gettext: function (e) {
     var that = this
     var newtext = e.detail.value.newtext;
     console.log(newtext)
-    var mydate=that.data.date
-    var mydate1 = mydate.replace(/-/g, '');
-    console.log(mydate1)
-    mydate=mydate1
-    if(mydate1.charAt(6)=='0')
-    {
-      mydate=mydate1.slice(0,6)+mydate1.slice(-1)
-      console.log(mydate)
-    }
-    if(mydate1.charAt(4)=='0')
-    {
-      mydate1=mydate.slice(0,4)+mydate.slice(5)
-      console.log(mydate1)
-    }
-    var addtext={
-      id:mydate1,
-      text:newtext
+    var mydate = that.data.date
+    var mydate1 = this.To_dateid(mydate)
+    db.collection('Month_todo').add({
+      data: {
+        context: newtext,
+        date_id: mydate1,
+      },
+      success: res => {
+        that.data.info.push({
+          id: res._id,
+          text: newtext,
+          date_id: mydate1
+        });
+        this.setData({
+          info: that.data.info
+        });
+      }
+    });
+    var addtext = {
+      id: mydate1,
+      text: newtext
     }
     that.data.info.push(addtext)
     console.log(addtext)
     that.setData({
       text: '',
-      info:that.data.info
+      info: that.data.info
     });
   },
 
-//选择框函数
-DateChange(e) {
-  this.setData({
-    date: e.detail.value
-  })
-  console.log(this.data.date)
-},
-
-  /*监听*/
-  onLoad: function () {
-    let now = new Date();
-    let year = now.getFullYear();
-    let month = now.getMonth() + 1;
-    this.dateInit();
+  //选择框函数
+  DateChange(e) {
     this.setData({
-      year: year,
-      month: month,
-      isToday: '' + year + month + now.getDate()
+      date: e.detail.value
     })
+    console.log(this.data.date)
   },
 
   dateInit: function (setYear, setMonth) {
@@ -420,26 +380,30 @@ DateChange(e) {
   mytap: function (e) {
     var mydate = e.currentTarget.dataset.date
     var that = this
+    that.setData({
+      clickdate: mydate
+    })
     var arr = that.data.info;
     var i = 0
-    var len=arr.length
-    for (i=0; i < len; i++) {
-      if (arr[i].id == mydate)
-      {
+    var len = arr.length
+    console.log(len)
+    for (i = 0; i < len; i++) {
+      console.log(arr[i])
+      if (arr[i].date_id == mydate) {
         that.setData({
           usertext: arr[i].text,
-          isclick:mydate
+          isclick: mydate
         })
+        console.log(that.data.usertext)
         break
       }
     }
-    if (i==len)
-    that.setData({
-      usertext: "还没有添加内容",
-      editTrue: true,
-      isclick:mydate
-    })
-    console.log()
+    if (i == len)
+      that.setData({
+        usertext: "还没有添加内容",
+        editTrue: true,
+        isclick: mydate
+      })
   },
 
   hidebut: function () {
@@ -452,7 +416,253 @@ DateChange(e) {
   },
   TimeChange(e) {
     this.setData({
-      time: e.detail.value
+      week_starttime: e.detail.value
     })
   },
+  cal_edit: function (e) {
+    var that = this
+    var edittext = e.detail.value.edittext;
+    var editdate = that.data.clickdate
+    var arr = that.data.info;
+    var i = 0
+    var len = arr.length
+    for (i = 0; i < len; i++) {
+      if (arr[i].date_id == editdate) {
+        var id = arr[i].id
+        var playStatus = "info[" + i + "].text";
+        that.setData({
+          [playStatus]: edittext,
+          text:''
+        })
+        break
+      }
+    }
+    db.collection('Month_todo').doc(id).update({
+      data: {
+        context: edittext
+      }
+    });
+  },
+  cal_delete: function () {
+    var that = this
+    var arr = that.data.info;
+    var i = 0
+    var len = arr.length
+    var list = that.data.info
+    for (i = 0; i < len; i++) {
+      if (arr[i].date_id == that.data.clickdate) {
+        var id = arr[i].id
+        db.collection('Month_todo').doc(id).remove();
+        list.splice(i, 1);
+        this.setData({
+          info: list
+        });
+        break
+      }
+    }
+    that.hideModal()
+  },
+  repeat_PickerChange(e) {
+    this.setData({
+      repeat_index: e.detail.value
+    })
+  },
+  week_submit_todo(e){
+    var repeat = parseInt(this.data.repeat_index);
+    var start_time = this.data.week_starttime;
+    var time_length = e.detail.value.week_time_length;
+    var newtext = e.detail.value.week_newtext;
+    var start_list = start_time.split(':');
+    var start = parseFloat(start_list[0])+parseFloat(start_list[1])/60;
+    var length = parseFloat(time_length);
+    var week_todo = this.data.week_todo;
+    db.collection('Week_todo').add({
+      data: {
+        day: repeat,
+        start_time:start,
+        time_length: length,
+        context: newtext
+      },
+      success: res => {
+        if(repeat!=0){
+          week_todo.push({
+            id: res._id,
+            day: repeat,
+            start_time: start,
+            length: length,
+            context: newtext
+          });
+        }
+        else{
+          for(var j=1;j<=7;j++)
+          {
+            week_todo.push({
+              id: res._id,
+              day: j,
+              start_time: start,
+              length: length,
+              context: newtext
+            });
+          }
+        }
+        this.setData({
+          week_todo:week_todo,
+          week_starttime: '12:00',
+          repeat_index:0,
+          text:''
+        })
+      }
+    });
+  },
+  inquire_week_todo: function () {
+    let week_todo = [];
+    db.collection('Week_todo').where({
+      _openid: getApp().globalData.openid
+    })
+      .get({
+        success: res => {
+          for (var i = 0; i < res.data.length; i++) {
+            if(res.data[i].day!=0){
+              week_todo.push({
+                id: res.data[i]._id,
+                day: res.data[i].day,
+                start_time: res.data[i].start_time,
+                length: res.data[i].time_length,
+                context: res.data[i].context
+              })
+            }
+            else{
+              for(var j=1;j<=7;j++){
+                week_todo.push({
+                  id: res.data[i]._id,
+                  day: j,
+                  start_time: res.data[i].start_time,
+                  length: res.data[i].time_length,
+                  context: res.data[i].context
+                })
+              }
+            }
+          }
+          this.setData({
+            week_todo: week_todo
+          })
+        }
+      });
+  },
+  week_set_current_id:function(e){
+    var index = e.currentTarget.dataset.index;
+    var week_todo = this.data.week_todo;
+    var id = week_todo[index].id;
+    var start = week_todo[index].start_time;
+    var hour = parseInt(start);
+    if((hour + '').length == 1) hour = '0' + hour;
+    var minite = parseInt((start - parseInt(start))*60);
+    if((minite + '').length == 1) minite = '0' + minite;
+    start = hour + ':' + minite;
+    var count = 0;
+    var day = '';
+    for(var i=0;i<week_todo.length;i++)
+    {
+      if(week_todo[i].id == id)
+      {
+        switch(week_todo[i].day){
+          case 1:
+            day='周一';
+            break;
+          case 2:
+            day='周二';
+            break;
+          case 3:
+            day='周三';
+            break;
+          case 4:
+            day='周四';
+            break;
+          case 5:
+            day='周五';
+            break;
+          case 6:
+            day='周六';
+            break;
+          case 7:
+            day='周日';
+            break;
+        }
+        count+=1;
+      }
+    }
+    if(count == 7) day = '每天';
+    this.setData({
+      week_current_index : index,
+      week_current_repeat: day,
+      week_current_start_time: start
+    })
+    this.showModal(e);
+  },
+  week_edit:function(e){
+    var week_todo = this.data.week_todo;
+    var repeat = week_todo[this.data.week_current_index].day;
+    var start = this.data.week_current_start_time;
+    var id = week_todo[this.data.week_current_index].id;
+    var count = 0;
+    for(var i=0;i<week_todo.length;i++)
+    {
+      if(week_todo[i].id == id)
+      {
+        count+=1;
+      }
+    }
+    if(count == 7) repeat = 0;
+    this.setData({
+      repeat_index: repeat,
+      week_starttime: start
+    });
+    this.showModal(e);
+  },
+  week_submit_edit:function(e){
+    var repeat = parseInt(this.data.repeat_index);
+    var start_time = this.data.week_starttime;
+    var time_length = e.detail.value.week_time_length;
+    var newtext = e.detail.value.week_newtext;
+    var start_list = start_time.split(':');
+    var start = parseFloat(start_list[0])+parseFloat(start_list[1])/60;
+    var length = parseFloat(time_length);
+    var week_todo = this.data.week_todo;
+    db.collection('Week_todo').doc(this.data.week_todo[this.data.week_current_index].id).update({
+      data: {
+        day: repeat,
+        start_time:start,
+        time_length: length,
+        context: newtext
+      },
+      success: res => {
+        this.inquire_week_todo();
+        this.setData({
+          week_starttime: '12:00',
+          repeat_index:0,
+          text:''
+        })
+      }
+    });
+  },
+  week_delete:function(e){
+    var week_todo = this.data.week_todo;
+    var id = week_todo[this.data.week_current_index].id;
+    db.collection('Week_todo').doc(id).remove();
+    for(var i=0;i<week_todo.length;i++)
+    {
+      if(week_todo[i].id == id)
+      {
+        week_todo.splice(i,1);
+        i--;
+      }
+    }
+    this.setData({
+      week_todo: week_todo,
+      week_starttime: '12:00',
+      repeat_index:0,
+      text:''
+    })
+    this.hideModal();
+  }
 })

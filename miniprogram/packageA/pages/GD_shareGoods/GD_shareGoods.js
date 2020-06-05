@@ -1,35 +1,19 @@
-// miniprogram/pages/GD_index/GD_index.js
+// miniprogram/packageA/pages/GD_shareGoods/GD_shareGoods.js
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    openid: '',
+
   },
-  onLoad: function () {
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
   },
- // 获取用户openid
-  getOpenid() {
-    let that = this;
-    wx.cloud.callFunction({
-    name: 'getOpenid',
-    complete: res => {
-    console.log('云函数获取到的openid: ', res.result.openId)
-    var openid = res.result.openId;
-    that.setData({
-     openid: openid
-    })
-   }
-  })
- },
-  jumptoplan: function() {
-    wx.navigateTo({
-      url: '../../packageB/pages/GD_plan/GD_plan',
-    })
-  },
-  jumptogetphoto: function() {
-    wx.navigateTo({
-      url: '../../packageA/pages/GD_getPhoto/GD_getPhoto',
-    })
-  },
-  
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -78,5 +62,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  goToEmulsion: function() {
+    wx.navigateTo({
+      url: '../../../packageD/pages/GD_share_emulsion/GD_share_emulsion',
+    })
   }
 })

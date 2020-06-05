@@ -2,24 +2,31 @@
   "pages": [
     "pages/GD_index/GD_index"
   ],
-  "subpackages":[
+  "subpackages": [
     {
-      "root":"packageA",
+      "root": "packageA",
       "pages": [
         "pages/GD_getPhoto/GD_getPhoto",
-        "pages/GD_Report/GD_Report"
+        "pages/GD_Report/GD_Report",
+        "pages/GD_shareGoods/GD_shareGoods"
       ]
     },
     {
-      "root":"packageB",
+      "root": "packageB",
       "pages": [
         "pages/GD_plan/GD_plan"
       ]
     },
     {
-      "root":"packageC",
+      "root": "packageC",
       "pages": [
         "pages/GD_recommend/GD_recommend"
+      ]
+    },
+    {
+      "root":"packageD",
+      "pages":[
+        "pages/GD_share_emulsion/GD_share_emulsion"
       ]
     }
   ],

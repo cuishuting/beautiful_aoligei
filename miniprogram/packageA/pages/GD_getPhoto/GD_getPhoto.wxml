@@ -1,4 +1,5 @@
 <!--pages/GD_getPhoto/GD_getPhoto.wxml-->
+<<<<<<< HEAD
 <view class="bg-white text-center">
 	<view class="text-pink text-xl padding">针对皮肤问题，定制美丽管理</view>
 	<image src="{{imagePath}}" class="solids shadow" mode="aspectFit"></image>
@@ -7,4 +8,16 @@
 		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="jumpToTestReport" hidden="{{TestReport}}">查看测试报告</button>
 		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="shareGoods">点击分享好物</button>
 	</view>
+=======
+<view class="padding">
+  <button class="cu-btn block bg-black margin-tb-sm lg" bindtap="upLoadImage">点击获取测试皮肤</button>
 </view>
+<view class="padding">
+  <button class="cu-btn block bg-black margin-tb-sm lg" bindtap="shareGoods">点击分享好物</button>
+</view>
+<image src="{{imagePath}}"></image>
+<view class="padding">
+  <button class="cu-btn block bg-black margin-tb-sm lg" bindtap="jumpToTestReport" hidden="{{TestReport}}">点击查看测试报告</button>
+>>>>>>> upstream/master
+</view>
+
