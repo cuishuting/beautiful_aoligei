@@ -29,7 +29,7 @@
 	</view>
 </van-card>
 <view hidden="{{show_pic}}" class="out_pic">
-		<image src="../../../images/noEyeProNote.png"  class="pic"></image>
+		<image src="cloud://girls-diary-lcexw.6769-girls-diary-lcexw-1302183289/项目素材图/noEyeProNote.png"  class="pic"></image>
 </view>
 <view hidden="{{show_pic}}" class="out_pic">
 		<image src="../../../images/noEyeProNote.png"  class="pic"></image>

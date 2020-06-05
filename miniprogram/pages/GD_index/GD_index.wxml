@@ -1,13 +1,13 @@
 <view>
-	<image class='background' src="/images/background.png"></image>
+	<image class='background' src="cloud://girls-diary-lcexw.6769-girls-diary-lcexw-1302183289/项目素材图/background.png"></image>
 	<view class="flex solid-bottom padding-top-xl justify-center">
 		<view class="margin-xs radius padding-left-xl">
-			<image src='/images/plan-but.png ' class='image1' bindtap="jumptoplan"></image>
+			<image src='cloud://girls-diary-lcexw.6769-girls-diary-lcexw-1302183289/项目素材图/plan-but.png' class='image1' bindtap="jumptoplan"></image>
 		</view>
 	</view>
   <view class="flex solid-bottom padding justify-between">
       <view class="margin-xs radius ">
-      <image src='/images/beauty-but.png ' class='image2' bindtap="jumptogetphoto"></image>
+      <image src='cloud://girls-diary-lcexw.6769-girls-diary-lcexw-1302183289/项目素材图/beauty-but.png' class='image2' bindtap="jumptogetphoto"></image>
       </view>
     </view>
 </view>

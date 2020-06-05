@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imagePath:"../../../images/default-pic.png", //初始化时一定要加“”（类型需要）
+    imagePath:"cloud://girls-diary-lcexw.6769-girls-diary-lcexw-1302183289/项目素材图/default-pic.png", //初始化时一定要加“”（类型需要）
     takePhotoOrNot:true,
     gettingPhoto: true,
     base64_photo: "",
