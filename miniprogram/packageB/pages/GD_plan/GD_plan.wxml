@@ -94,7 +94,7 @@
 		</view>
 
 		<view wx:for="{{week_todo}}" wx:key="{{index}}">
-			<view bindtap="week_set_current_id" data-target="Dialog_weekplan" data-index="{{index}}" style="height:{{item.length/60*100.7}}rpx; top:{{(item.start_time+20)%24*100.7}}rpx; left:{{(item.day-1)*13.14+8}}%" class="week_todo">{{item.context}}</view>
+			<view bindtap="week_set_current_id" data-target="Dialog_weekplan" data-index="{{index}}" style="height:{{item.length/60*101.5}}rpx; top:{{(item.start_time+20)%24*101.5}}rpx; left:{{(item.day-1)*13.14+8}}%" class="week_todo">{{item.context}}</view>
 		</view>
 	</scroll-view>
 
@@ -159,7 +159,7 @@
 					</view>
 					<view class="cu-form-group">
 						<view class="title">时长</view>
-						<input style='text-align: right' type='number' name='week_time_length' value="{{week_todo[week_current_index].length}}"></input>
+						<input style='text-align: right' type='number' name='week_time_length' value='{{week_todo[week_current_index].length}}'></input>
 						<view>分钟</view>
 					</view>
 					<view class="cu-form-group">
