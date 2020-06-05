@@ -9,6 +9,7 @@ Page({
     TabCur: '',
     day_todo_list: [],
     //月计划数据
+    cal_index:0,
     isclick: false,
     year: 0,
     month: 0,
@@ -23,16 +24,7 @@ Page({
     text: '',
     usertext: "还没有添加内容",
     editTrue: false,
-    info: [
-      {
-        id: 2020526,
-        text: "英语考试"
-      },
-      {
-        id: 202061,
-        text: "小红花"
-      }
-    ],
+    info: [],
     clickdate: '',
     week_starttime: '12:00',
     week_todo: [],
@@ -47,15 +39,24 @@ Page({
     let now = new Date();
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
-    this.dateInit();
-    this.setData({
-      year: year,
-      month: month,
-      isToday: '' + year + month + now.getDate()
-    })
     this.inquire_day_todo();
     this.inquire_month_todo();
     this.inquire_week_todo();
+    if(month>=10){
+      this.setData({
+        year: year,
+        month: month,
+        isToday: '' + year + month + now.getDate(),
+      })
+    }
+    else{
+      this.setData({
+        year: year,
+        month: month,
+        isToday: '' + year + '0'+month + now.getDate(),
+      })
+    }
+    
   },
 
   inquire_day_todo: function () {
@@ -90,12 +91,14 @@ Page({
             month_todo.push({
               text: res.data[i].context,
               id: res.data[i]._id,
-              date_id: res.data[i].date_id
+              date_id: res.data[i].date_id,
+              month:res.data[i].month
             })
           }
           this.setData({
             info: month_todo
           })
+          this.dateInit();
         }
       });
   },
@@ -242,52 +245,49 @@ Page({
       TabCur: e.currentTarget.dataset.id,
     })
   },
+  //月计划函数
   To_dateid: function (mydate) {
     var mydate1 = mydate.replace(/-/g, '');
-    console.log(mydate1)
     mydate = mydate1
     if (mydate1.charAt(6) == '0') {
       mydate = mydate1.slice(0, 6) + mydate1.slice(-1)
-      console.log(mydate)
     }
-    if (mydate1.charAt(4) == '0') {
-      mydate1 = mydate.slice(0, 4) + mydate.slice(5)
-      console.log(mydate1)
-    }
-    return mydate1
+    return mydate
   },
-  gettext: function (e) {
-    var that = this
-    var newtext = e.detail.value.newtext;
-    console.log(newtext)
-    var mydate = that.data.date
-    var mydate1 = this.To_dateid(mydate)
+  cal_add:function(newtext,mydate1){
+    var that=this
     db.collection('Month_todo').add({
       data: {
         context: newtext,
         date_id: mydate1,
+        month:mydate1.slice(4,6)
       },
       success: res => {
         that.data.info.push({
           id: res._id,
           text: newtext,
-          date_id: mydate1
+          date_id: mydate1,
+          month:mydate1.slice(4,6)
         });
         this.setData({
           info: that.data.info
         });
       }
     });
-    var addtext = {
-      id: mydate1,
-      text: newtext
-    }
-    that.data.info.push(addtext)
-    console.log(addtext)
+    var playStatus = "dateArr["+that.data.cal_index+"].ishas";
     that.setData({
       text: '',
-      info: that.data.info
+      usertext: newtext,
+      [playStatus]:true
     });
+    console.log(that.data.dateArr[that.data.cal_index].ishas)
+  },
+  gettext: function (e) {
+    var that = this
+    var newtext = e.detail.value.newtext;
+    var mydate = that.data.date
+    var mydate1 = this.To_dateid(mydate)
+    this.cal_add(newtext,mydate1)
   },
 
   //选择框函数
@@ -295,7 +295,6 @@ Page({
     this.setData({
       date: e.detail.value
     })
-    console.log(this.data.date)
   },
 
   dateInit: function (setYear, setMonth) {
@@ -317,15 +316,43 @@ Page({
       dayNums = new Date(nextYear, nextMonth, 0).getDate();
     }
     arrLen = startWeek + dayNums;
+    var that = this
+    var arr = that.data.info;
+    var len = arr.length
+    var ifhas=false
+    var Today
+    var num_list=[]//存储info列表中和当前相同月份的索引值
+    for (var j = 0; j < len; j++) { 
+      if (arr[j].month==''+(month+1)||arr[j].month=='0'+(month+1)) {
+        num_list.push(j)
+      }
+    }
+    console.log(that.data.info.length)
     for (let i = 0; i < arrLen; i++) {
       if (i >= startWeek) {
         num = i - startWeek + 1;
-        obj = {
-          isToday: '' + year + (month + 1) + num,
-          dateNum: num,
-          weight: 5
+        if(month>=9)
+      Today= '' + year + (month+1) + (num)
+      else
+      Today= '' + year + '0'+(month+1) + (num)
+      for(var m=0;m<num_list.length;m++)
+      {       
+        if(arr[num_list[m]].date_id==Today)
+        {
+          ifhas=true
+          break
         }
-      } else {
+      }
+      if(m==num_list.length)
+        ifhas=false
+          obj = {
+            isToday: Today,
+            dateNum: num,
+            weight: 5,
+            ishas:ifhas
+        }
+        }
+       else {
         obj = {};
       }
       dateArr[i] = obj;
@@ -379,22 +406,21 @@ Page({
   //触摸函数
   mytap: function (e) {
     var mydate = e.currentTarget.dataset.date
+    var myindex = e.currentTarget.dataset.cal_index
     var that = this
     that.setData({
-      clickdate: mydate
+      clickdate: mydate,
+      cal_index: myindex
     })
     var arr = that.data.info;
     var i = 0
     var len = arr.length
-    console.log(len)
     for (i = 0; i < len; i++) {
-      console.log(arr[i])
       if (arr[i].date_id == mydate) {
         that.setData({
           usertext: arr[i].text,
           isclick: mydate
         })
-        console.log(that.data.usertext)
         break
       }
     }
@@ -416,7 +442,7 @@ Page({
   },
   TimeChange(e) {
     this.setData({
-      week_starttime: e.detail.value
+      time: e.detail.value
     })
   },
   cal_edit: function (e) {
@@ -426,22 +452,30 @@ Page({
     var arr = that.data.info;
     var i = 0
     var len = arr.length
-    for (i = 0; i < len; i++) {
-      if (arr[i].date_id == editdate) {
-        var id = arr[i].id
-        var playStatus = "info[" + i + "].text";
-        that.setData({
-          [playStatus]: edittext,
-          text:''
-        })
-        break
-      }
+    var temp=that.data.usertext
+    if(temp=="还没有添加内容"){
+      that.cal_add(edittext,editdate)
+      console.log(that.data.info)
     }
-    db.collection('Month_todo').doc(id).update({
-      data: {
-        context: edittext
+    else{
+      for (i = 0; i < len; i++) {
+        if (arr[i].date_id == editdate) {
+          var id = arr[i].id
+          var playStatus = "info[" + i + "].text";
+          that.setData({
+            [playStatus]: edittext,
+            text:''
+          })
+          break
+        }
       }
-    });
+      db.collection('Month_todo').doc(id).update({
+        data: {
+          context: edittext
+        }
+      });
+    }
+    
   },
   cal_delete: function () {
     var that = this
@@ -460,8 +494,10 @@ Page({
         break
       }
     }
+    that.data.dateArr[that.data.cal_index].ishas=false
     that.hideModal()
   },
+  //周计划函数
   repeat_PickerChange(e) {
     this.setData({
       repeat_index: e.detail.value
