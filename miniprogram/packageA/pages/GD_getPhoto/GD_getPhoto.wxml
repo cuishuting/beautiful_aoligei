@@ -5,5 +5,6 @@
 	<view class="padding">
 		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="upLoadImage">点击上传照片获取测试报告</button>
 		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="jumpToTestReport" hidden="{{TestReport}}">查看测试报告</button>
+		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="shareGoods">点击分享好物</button>
 	</view>
 </view>
