@@ -28,6 +28,9 @@
 		<van-button size="mini" bind:click="down">点踩{{item.down}}</van-button>
 	</view>
 </van-card>
+<view hidden="{{show_pic}}" class="out_pic">
+		<image src="../../../images/noEyeProNote.png"  class="pic"></image>
+</view>
 <van-card wx:for="{{list2}}" wx:if="{{TabCur==2}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}">
 	<view slot="footer">
 		<van-button size="mini" bind:click="up">点赞{{item.up}}</van-button>
