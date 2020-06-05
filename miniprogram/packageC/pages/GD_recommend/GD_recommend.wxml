@@ -7,85 +7,49 @@
 		<text class="cuIcon-discover lg" bindtap="eyeCream" >眼霜</text> 
 	</view>
 	<view class="cu-item {{2==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="2">
-		<text class="cuIcon-like lg" bindtap="Essence">精华</text> 
+		<text class="cuIcon-like lg" bindtap="Essence">精华</text>
 	</view>
 	<view class="cu-item {{3==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="3">
-		<text class="cuIcon-evaluate lg" bindtap="Lotion">爽肤水</text> 
+		<text class="cuIcon-evaluate lg" bindtap="Lotion">爽肤水</text>
 	</view>
 	<view class="cu-item {{4==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="4">
-		<text class="cuIcon-evaluate lg" bindtap="Emulsion">乳液</text> 
+		<text class="cuIcon-evaluate lg" bindtap="Emulsion">乳液</text>
 	</view>
 </scroll-view>
-<view wx:for="{{list0}}" class="item" class="cu-list menu-avatar"  wx:if="{{TabCur==0}}">
-	<view class="cu-item">
-		<view class="cu-avatar lg" style="background-image:url({{item.picture}});">
-			<view class="content">
-				<view class="text-black">{{item.name}}</view>
-			</view>
-		</view>
-		<view class="action">
-			<view class="solid-bottom text-xl">
-				<text class="text-price text-black">{{item.cost}}</text>
-			</view>
-		</view>
+<van-card wx:for="{{list0}}" wx:if="{{TabCur==0}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}">
+	<view slot="footer">
+		<van-button size="mini" bind:click="up">点赞{{item.up}}</van-button>
+		<van-button size="mini" bind:click="down">点踩{{item.down}}</van-button>
 	</view>
-</view>
-<view wx:for="{{list1}}"  class="item" class="cu-list menu-avatar"  wx:if="{{TabCur==1}}">
-	<view class="cu-item" hidden="{{haveEyeProblem}}">
-		<view class="cu-avatar lg" style="background-image:url({{item.picture}});">
-			<view class="content">
-				<view class="text-black">{{item.name}}</view>
-			</view>
-		</view>
-		<view class="action">
-			<view class="solid-bottom text-xl">
-				<text class="text-price text-black">{{item.cost}}</text>
-			</view>
-		</view>
+</van-card>
+<van-card wx:for="{{list1}}" wx:if="{{TabCur==1}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}">
+	<view slot="footer">
+		<van-button size="mini" bind:click="up">点赞{{item.up}}</van-button>
+		<van-button size="mini" bind:click="down">点踩{{item.down}}</van-button>
 	</view>
-</view>
+</van-card>
 <view hidden="{{show_pic}}" class="out_pic">
 		<image src="../../../images/noEyeProNote.png"  class="pic"></image>
 </view>
-<view wx:for="{{list2}}" class="item" class="cu-list menu-avatar"  wx:if="{{TabCur==2}}">
-	<view class="cu-item">
-		<view class="cu-avatar lg" style="background-image:url({{item.picture}});">
-			<view class="content">
-				<view class="text-black">{{item.name}}</view>
-			</view>
-		</view>
-		<view class="action">
-			<view class="solid-bottom text-xl">
-				<text class="text-price text-black">{{item.cost}}</text>
-			</view>
-		</view>
-	</view>
+<view hidden="{{show_pic}}" class="out_pic">
+		<image src="../../../images/noEyeProNote.png"  class="pic"></image>
+
 </view>
-<view wx:for="{{list3}}" class="item" class="cu-list menu-avatar"  wx:if="{{TabCur==3}}">
-	<view class="cu-item">
-		<view class="cu-avatar lg" style="background-image:url({{item.picture}});">
-			<view class="content">
-				<view class="text-black">{{item.name}}</view>
-			</view>
-		</view>
-		<view class="action">
-			<view class="solid-bottom text-xl">
-				<text class="text-price text-black">{{item.cost}}</text>
-			</view>
-		</view>
+<van-card wx:for="{{list2}}" wx:if="{{TabCur==2}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}">
+	<view slot="footer">
+		<van-button size="mini" bind:click="up">点赞{{item.up}}</van-button>
+		<van-button size="mini" bind:click="down">点踩{{item.down}}</van-button>
 	</view>
-</view>
-<view wx:for="{{list4}}" class="item" class="cu-list menu-avatar"  wx:if="{{TabCur==4}}">
-	<view class="cu-item">
-		<view class="cu-avatar lg" style="background-image:url({{item.picture}});">
-			<view class="content">
-				<view class="text-black">{{item.name}}</view>
-			</view>
-		</view>
-		<view class="action">
-			<view class="solid-bottom text-xl">
-				<text class="text-price text-black">{{item.cost}}</text>
-			</view>
-		</view>
+</van-card>
+<van-card wx:for="{{list3}}" wx:if="{{TabCur==3}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}">
+	<view slot="footer">
+		<van-button size="mini" bind:click="up">点赞{{item.up}}</van-button>
+		<van-button size="mini" bind:click="down">点踩{{item.down}}</van-button>
 	</view>
-</view> 
+</van-card>
+<van-card wx:for="{{list4}}" wx:if="{{TabCur==4}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}">
+	<view slot="footer">
+		<van-button size="mini" bind:click="up">点赞{{item.up}}</van-button>
+		<van-button size="mini" bind:click="down">点踩{{item.down}}</van-button>
+	</view>
+</van-card>
