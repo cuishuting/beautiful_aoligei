@@ -6,7 +6,16 @@ Page({
    */
   data: {
     TabCur: 0,
-    list0: [],
+    list0: [
+      {
+        name:'nifre',
+        cost:200,
+        picture:'https://img.yzcdn.cn/vant/ipad.jpeg',
+        desc:'1343',
+        up:10,
+        down:1
+      }
+    ],
     list1: [],
     list2:[],
     list3:[],
@@ -21,6 +30,12 @@ Page({
     this.setData({
       TabCur: e.currentTarget.dataset.id,
     })
+  },
+  up(e){
+    console.log('okk');
+  },
+  down(e){
+    console.log('ok');
   },
   /**
    * 生命周期函数--监听页面加载

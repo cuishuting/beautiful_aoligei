@@ -3,6 +3,7 @@
 	"cloudfunctionRoot": "cloudfunctions/",
 	"setting": {
 		"urlCheck": false,
+		"es6": true,
 		"enhance": true,
 		"postcss": true,
 		"preloadBackgroundData": false,
@@ -21,7 +22,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"appid": "wx90678c39a5a9e98b",
@@ -46,13 +47,45 @@
 		"game": {
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 0,
 			"list": [
 				{
 					"id": -1,
 					"name": "db guide",
-					"pathName": "pages/databaseGuide/databaseGuide"
+					"pathName": "pages/databaseGuide/databaseGuide",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "packageC/pages/GD_recommend/GD_recommend",
+					"pathName": "packageC/pages/GD_recommend/GD_recommend",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/GD_index/GD_index",
+					"pathName": "pages/GD_index/GD_index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/GD_getPhoto/GD_getPhoto",
+					"pathName": "packageA/pages/GD_getPhoto/GD_getPhoto",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/GD_Report/GD_Report",
+					"pathName": "packageA/pages/GD_Report/GD_Report",
+					"scene": null
 				}
 			]
 		}

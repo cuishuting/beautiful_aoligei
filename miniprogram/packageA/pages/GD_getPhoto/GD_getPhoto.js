@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imagePath:"", //初始化时一定要加“”（类型需要）
+    imagePath:"../../../images/default-pic.png", //初始化时一定要加“”（类型需要）
     takePhotoOrNot:true,
     gettingPhoto: true,
     base64_photo: "",

@@ -30,6 +30,5 @@
     "navigationBarTitleText": "Girls' Diary",
     "navigationBarTextStyle": "black"
   },
-  "sitemapLocation": "sitemap.json",
-  "style": "v2"
+  "sitemapLocation": "sitemap.json"
 }
