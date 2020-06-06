@@ -272,7 +272,7 @@
 							</picker>
 						</view>
 						<view class="cu-form-group">
-							<input placeholder="便签内容" name='newtext' value='{{text}}'></input>
+							<input placeholder="便签内容" name='newtext' value='{{cal_addtext}}'></input>
 						</view>
 					</view>
 					<view class="cu-bar bg-white justify-end">
