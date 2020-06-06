@@ -1,0 +1,32 @@
+<!--miniprogram/packageD/pages/GD_share_eye_cream/GD_share_eye_cream.wxml-->
+<!--packageD/pages/GD_share_emulsion/GD_share_emulsion.wxml-->
+<text>眼霜</text>
+<van-field
+    label="名称"
+    placeholder="请输入眼霜名称（不超过15字）"
+    input-align="left"
+    value="{{eye_cream_name}}"
+    bind:change="get_name"
+/>
+<van-field
+    label="价格"
+    placeholder="请输入眼霜价格"
+    input-align="left"
+    value="{{eye_cream_price}}"
+    bind:change="get_price"
+/>
+<van-radio-group value="{{ eye_problem }}" bind:change="onChange">
+  <van-cell-group>
+    <van-cell title="针对黑眼圈" clickable data-name="针对黑眼圈" bind:click="onClick">
+      <van-radio slot="right-icon" name="针对黑眼圈" />
+    </van-cell>
+    <van-cell title="针对眼部细纹" clickable data-name="针对眼部细纹" bind:click="onClick">
+      <van-radio slot="right-icon" name="针对眼部细纹" />
+    </van-cell>
+    <van-cell title="针对眼袋" clickable data-name="针对眼袋" bind:click="onClick">
+      <van-radio slot="right-icon" name="针对眼袋" />
+    </van-cell>
+  </van-cell-group>
+</van-radio-group>
+<van-button icon="add-o" type="primary" bind:click="uploadImage">点击上传图片</van-button>
+<van-button icon="goods-collect-o" type="primary" bind:click="share">点击分享好物</van-button>

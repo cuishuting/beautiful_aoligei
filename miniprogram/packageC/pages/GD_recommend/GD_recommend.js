@@ -100,8 +100,12 @@ Page({
     that.setData({
       eye_problem_list: problem_list,
     })
-    // console.log("皮肤类型");
-    // console.log(that.data.skin_type_str);
+    that.facialFoam();
+    that.eyeCream();
+    that.Essence();
+    that.Lotion();
+    that.Emulsion();
+    console.log("页面数据加载完毕");
   },
 
   /**
@@ -148,8 +152,8 @@ Page({
         that.setData({
           list0: facial_foam_list,
         })
+        console.log("洗面奶列表加载完毕");
       }
-
     });
   },
   eyeCream: function() {
@@ -164,8 +168,8 @@ Page({
     })
     console.log("eyeCream被触发啦");
     var problem_list = that.data.eye_problem_list;
+    var  eye_cream_list = [];
     const db = wx.cloud.database();
-    
     const _ = db.command;
     for (var i = 0; i < problem_list.length; i++) {
       var cur_eye_cream_num = 0; //当前种类眼霜的个数
@@ -181,8 +185,8 @@ Page({
           console.log("当前眼部问题的返回结果");
           console.log(res.data);
           console.log(cur_eye_cream_num);
+          eye_cream_list = [];
           for (var j = 0; j < cur_eye_cream_num; j++) {
-            var eye_cream_list = [];
             var cur_eye_cream = {
               name: "",
               picture: "",
@@ -200,15 +204,13 @@ Page({
           })
         }
       })
-      console.log("eye_cream_list");
-      console.log(eye_cream_list);
       that.setData({
         list1: that.data.list1.concat(eye_cream_list),
       })
       console.log("list1");
       console.log(that.data.list1);
     }
-    
+    console.log("眼霜加载完毕");
   },
 
 
@@ -290,6 +292,7 @@ Page({
        })
       }
     });
+    console.log("Emulsion加载完毕");
   }, 
   Lotion: function() {
     var that = this;
@@ -327,6 +330,7 @@ Page({
        })
       }
     });
+    console.log("Lotion加载完毕");
   },
   /**
    * 生命周期函数--监听页面显示

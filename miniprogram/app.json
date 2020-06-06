@@ -24,9 +24,13 @@
       ]
     },
     {
-      "root":"packageD",
-      "pages":[
-        "pages/GD_share_emulsion/GD_share_emulsion"
+      "root": "packageD",
+      "pages": [
+        "pages/GD_share_emulsion/GD_share_emulsion",
+        "pages/GD_share_eye_cream/GD_share_eye_cream",
+        "pages/GD_share_essence/GD_share_essence",
+        "pages/GD_share_facial_foam/GD_share_facial_foam",
+        "pages/GD_share_lotion/GD_share_lotion"
       ]
     }
   ],

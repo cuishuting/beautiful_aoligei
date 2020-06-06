@@ -67,5 +67,25 @@ Page({
     wx.navigateTo({
       url: '../../../packageD/pages/GD_share_emulsion/GD_share_emulsion',
     })
+  },
+  goToEyeCream: function() {
+    wx.navigateTo({
+      url: '../../../packageD/pages/GD_share_eye_cream/GD_share_eye_cream',
+    })
+  },
+  goToEssence: function() {
+    wx.navigateTo({
+      url: '../../../packageD/pages/GD_share_essence/GD_share_essence',
+    })
+  },
+  goToFacialFoam: function() {
+    wx.navigateTo({
+      url: '../../../packageD/pages/GD_share_facial_foam/GD_share_facial_foam',
+    })
+  },
+  goToLotion: function() {
+    wx.navigateTo({
+      url: '../../../packageD/pages/GD_share_lotion/GD_share_lotion',
+    })
   }
 })

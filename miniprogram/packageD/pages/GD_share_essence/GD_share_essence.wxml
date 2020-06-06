@@ -1,17 +1,17 @@
-<!--packageD/pages/GD_share_emulsion/GD_share_emulsion.wxml-->
-<text>乳液</text>
+<!--miniprogram/packageD/pages/GD_share_essence/GD_share_essence.wxml-->
+<text>精华</text>
 <van-field
     label="名称"
-    placeholder="请输入乳液名称（不超过15字）"
+    placeholder="请输入精华名称（不超过15字）"
     input-align="left"
-    value="{{emilsion_name}}"
+    value="{{essence_name}}"
     bind:change="get_name"
 />
 <van-field
     label="价格"
-    placeholder="请输入乳液价格"
+    placeholder="请输入精华价格"
     input-align="left"
-    value="{{emilsion_price}}"
+    value="{{essence_price}}"
     bind:change="get_price"
 />
 <van-radio-group value="{{ skin_type }}" bind:change="onChange">

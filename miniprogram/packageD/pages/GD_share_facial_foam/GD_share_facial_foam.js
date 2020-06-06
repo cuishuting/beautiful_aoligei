@@ -1,3 +1,4 @@
+// miniprogram/packageD/pages/GD_share_facial_foam/GD_share_facial_foam.js
 // packageD/pages/GD_share_emulsion/GD_share_emulsion.js
 Page({
 
@@ -5,8 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    emulsion_name: '', //string
-    emulsion_price: 0, //number
+    facial_foam_name: '', //string
+    facial_foam_price: 0, //number
     skin_type: '油性皮肤', //皮肤的种类
     img_URL: '', //上传的图片的云存储地址
   },
@@ -28,13 +29,13 @@ Page({
   get_name(e) {
     var that = this;
     that.setData({
-      emulsion_name: e.detail,
+      facial_foam_name: e.detail,
     })
   },
   get_price(e) {
     var that = this;
     that.setData({
-      emulsion_price: e.detail
+      facial_foam_price: e.detail
     })
   },
   uploadImage: function() {
@@ -65,10 +66,10 @@ Page({
     var that = this;
     const db = wx.cloud.database();
     var url =  that.data.img_URL;
-    var cur_name = that.data.emulsion_name;
-    var cur_price = that.data.emulsion_price;
+    var cur_name = that.data.facial_foam_name;
+    var cur_price = that.data.facial_foam_price;
     var cur_skintype = that.data.skin_type;
-    db.collection('emulsion').add({
+    db.collection('facial_foam').add({
       data: {
         image: url,
         name: cur_name,

@@ -5,36 +5,36 @@ Page({
    * 页面的初始数据
    */
   data: {
-    emulsion_name: '', //string
-    emulsion_price: 0, //number
-    skin_type: '油性皮肤', //皮肤的种类
+    eye_cream_name: '', //string
+    eye_cream_price: 0, //number
+    eye_problem: '针对黑眼圈', //眼霜对应的功效
     img_URL: '', //上传的图片的云存储地址
   },
   onChange(event) {
     this.setData({
-      skin_type: event.detail,
+      eye_problem: event.detail,
     });
     console.log("onChange");
-    console.log(this.data.skin_type);
+    console.log(this.data.eye_problem);
   },
   onClick(event) {
     const { name } = event.currentTarget.dataset;
     this.setData({
-      skin_type: name,
+      eye_problem: name,
     });
     console.log("onClick");
-    console.log(this.data.skin_type);
+    console.log(this.data.eye_problem);
   },
   get_name(e) {
     var that = this;
     that.setData({
-      emulsion_name: e.detail,
+      eye_cream_name: e.detail,
     })
   },
   get_price(e) {
     var that = this;
     that.setData({
-      emulsion_price: e.detail
+      eye_cream_price: e.detail
     })
   },
   uploadImage: function() {
@@ -65,15 +65,26 @@ Page({
     var that = this;
     const db = wx.cloud.database();
     var url =  that.data.img_URL;
-    var cur_name = that.data.emulsion_name;
-    var cur_price = that.data.emulsion_price;
-    var cur_skintype = that.data.skin_type;
-    db.collection('emulsion').add({
+    var cur_name = that.data.eye_cream_name;
+    var cur_price = that.data.eye_cream_price;
+    var cur_eye_problem = "";
+    switch (that.data.eye_problem) {
+      case "针对黑眼圈":
+        cur_eye_problem = "dark_circle";
+        break;
+      case "针对眼部细纹":
+        cur_eye_problem = "eye_finelines";
+        break;
+      case "针对眼袋":
+        cur_eye_problem = "eye_pouch";
+        break;
+    }
+    db.collection('eye_cream').add({
       data: {
         image: url,
         name: cur_name,
         price: cur_price,
-        skintype: cur_skintype,
+        eye_problem: cur_eye_problem,
       },
       success: res => {
         wx.showToast({
