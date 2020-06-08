@@ -67,7 +67,7 @@ Page({
     var url =  that.data.img_URL;
     var cur_name = that.data.lotion_name;
     var cur_price = that.data.lotion_price;
-    var cur_skintype = that.data.lotion_type;
+    var cur_skintype = that.data.skin_type;
     db.collection('lotion').add({
       data: {
         image: url,
