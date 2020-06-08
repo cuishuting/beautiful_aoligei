@@ -516,7 +516,7 @@ Page({
   },
   TimeChange(e) {
     this.setData({
-      time: e.detail.value
+      week_starttime: e.detail.value
     })
   },
   cal_edit: function (e) {
