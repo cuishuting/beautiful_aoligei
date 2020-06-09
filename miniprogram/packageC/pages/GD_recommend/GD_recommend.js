@@ -6,16 +6,7 @@ Page({
    */
   data: {
     TabCur: 0,
-    list0: [
-      {
-        name:'nifre',
-        cost:200,
-        picture:'https://img.yzcdn.cn/vant/ipad.jpeg',
-        desc:'1343',
-        up:10,
-        down:1
-      }
-    ],
+    list0: [],
     list1: [],
     list2:[],
     list3:[],
@@ -33,6 +24,36 @@ Page({
     this.setData({
       TabCur: e.currentTarget.dataset.id,
     })
+  },
+  getFacial_foam: function() {
+    var that = this;
+    while (that.data.list0.length == 0) {
+      that.facialFoam();
+    }
+  },
+  getEye_cream: function() {
+    var that = this;
+    while (that.data.list1.length == 0) {
+      that.eyeCream();
+    }
+  },
+  getEssence:function() {
+    var that = this;
+    while (that.data.list2.length == 0) {
+      that.Essence();
+    }
+  },
+  getLotion: function() {
+    var that = this;
+    while (that.data.list3.length == 0) {
+      that.Lotion();
+    }
+  },
+  getEmulsion: function() {
+    var that = this;
+    while (that.data.list4.length == 0) {
+      that.Emulsion();
+    }
   },
   up(e){
     console.log('okk');
@@ -191,10 +212,24 @@ Page({
               name: "",
               picture: "",
               cost:"",
+              eye_problem: "针对"
             };
             cur_eye_cream.name = res.data[j].name;
             cur_eye_cream.picture = res.data[j].image;
             cur_eye_cream.cost = res.data[j].price;
+            var eye_problem_str = "";
+            switch (res.data[j].eye_problem) {
+              case "dark_circle" :
+                eye_problem_str = "黑眼圈";
+                break;
+              case "eye_finelines" :
+                eye_problem_str = "眼部细纹";
+                break;
+              case "eye_pouch" :
+                eye_problem_str = "眼袋";
+                break;
+            }
+            cur_eye_cream.eye_problem += eye_problem_str;
             console.log("当前眼霜：");
             console.log(cur_eye_cream);
             eye_cream_list.push(cur_eye_cream);

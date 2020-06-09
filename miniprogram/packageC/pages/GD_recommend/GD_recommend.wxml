@@ -1,19 +1,19 @@
 <!--miniprogram/pages/GD_recommend/GD_recommend.wxml-->
 <scroll-view scroll-x class="bg-black light nav text-center">
 	<view class="cu-item {{0==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="0">
-		<text class="cuIcon-favor lg">洗面奶</text>
+		<text class="cuIcon-favor lg" bindtap="getFacial_foam">洗面奶</text>
 	</view>
 	<view class="cu-item {{1==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="1" > 
-		<text class="cuIcon-discover lg">眼霜</text> 
+		<text class="cuIcon-discover lg" bindtap="getEye_cream">眼霜</text> 
 	</view>
 	<view class="cu-item {{2==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="2">
-		<text class="cuIcon-like lg">精华</text>
+		<text class="cuIcon-like lg" bindtap="getEssence">精华</text>
 	</view>
 	<view class="cu-item {{3==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="3">
-		<text class="cuIcon-evaluate lg">爽肤水</text>
+		<text class="cuIcon-evaluate lg" bindtap="getLotion">爽肤水</text>
 	</view>
 	<view class="cu-item {{4==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="4">
-		<text class="cuIcon-evaluate lg">乳液</text>
+		<text class="cuIcon-evaluate lg" bindtap="getEmulsion">乳液</text>
 	</view>
 </scroll-view>
 <van-card wx:for="{{list0}}" wx:if="{{TabCur==0}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}" tag="{{skin_type_str}}">
@@ -22,7 +22,7 @@
 		<van-button size="mini" bind:click="down">点踩{{item.down}}</van-button>
 	</view>
 </van-card>
-<van-card wx:for="{{list1}}" wx:if="{{TabCur==1}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}">
+<van-card wx:for="{{list1}}" wx:if="{{TabCur==1}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}" tag="{{item.eye_problem}}">
 	<view slot="footer">
 		<van-button size="mini" bind:click="up">点赞{{item.up}}</van-button>
 		<van-button size="mini" bind:click="down">点踩{{item.down}}</van-button>
