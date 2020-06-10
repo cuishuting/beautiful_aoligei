@@ -1,16 +1,16 @@
 <!--miniprogram/pages/GD_recommend/GD_recommend.wxml-->
 <scroll-view scroll-x class="bg-pink light nav text-center">
 	<view class="cu-item {{0==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="0">
-		<text class="cuIcon-favor lg">洗面奶</text>
+		<text class="cuIcon-favor lg" bindtap="getFacial_foam">洗面奶</text>
 	</view>
 	<view class="cu-item {{1==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="1" > 
 		<text class="cuIcon-discover lg" bindtap="getEye_cream">眼霜</text> 
 	</view>
 	<view class="cu-item {{2==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="2">
-		<text class="cuIcon-like lg">精华</text>
+		<text class="cuIcon-like lg" bindtap="getEssence">精华</text>
 	</view>
 	<view class="cu-item {{3==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="3">
-		<text class="cuIcon-evaluate lg">爽肤水</text>
+		<text class="cuIcon-evaluate lg" bindtap="getLotion">爽肤水</text>
 	</view>
 	<view class="cu-item {{4==TabCur?'text-white cur':''}}" bindtap="tabSelect" data-id="4">
 		<text class="cuIcon-evaluate lg" bindtap="getEmulsion">乳液</text>
