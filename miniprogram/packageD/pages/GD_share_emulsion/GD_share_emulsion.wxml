@@ -1,34 +1,35 @@
 <!--packageD/pages/GD_share_emulsion/GD_share_emulsion.wxml-->
-<text>乳液</text>
-<van-field
-    label="名称"
-    placeholder="请输入乳液名称（不超过15字）"
-    input-align="left"
-    value="{{emilsion_name}}"
-    bind:change="get_name"
-/>
-<van-field
-    label="价格"
-    placeholder="请输入乳液价格"
-    input-align="left"
-    value="{{emilsion_price}}"
-    bind:change="get_price"
-/>
+<view class="ripple" style="{{rippleStyle}}"></view>
+<view class="flex align-center justify-center bg-white padding">
+	<text class="text-xl text-pink">分享一款好用的乳液</text>
+</view>
+<van-field label="名称" placeholder="请输入乳液名称（不超过15字）" input-align="left" value="{{emilsion_name}}" bind:change="get_name" />
+<van-field label="价格" placeholder="请输入乳液价格" input-align="left" value="{{emilsion_price}}" bind:change="get_price" />
 <van-radio-group value="{{ skin_type }}" bind:change="onChange">
-  <van-cell-group>
-    <van-cell title="油性皮肤" clickable data-name="油性皮肤" bind:click="onClick">
-      <van-radio slot="right-icon" name="油性皮肤" />
-    </van-cell>
-    <van-cell title="中性皮肤" clickable data-name="中性皮肤" bind:click="onClick">
-      <van-radio slot="right-icon" name="中性皮肤" />
-    </van-cell>
-    <van-cell title="干性皮肤" clickable data-name="干性皮肤" bind:click="onClick">
-      <van-radio slot="right-icon" name="干性皮肤" />
-    </van-cell>
-    <van-cell title="混合性皮肤" clickable data-name="混合性皮肤" bind:click="onClick">
-      <van-radio slot="right-icon" name="混合性皮肤" />
-    </van-cell>
-  </van-cell-group>
+	<van-cell-group title="请选择适合的肤质">
+		<van-cell title="油性皮肤" clickable data-name="油性皮肤" bind:click="onClick">
+			<van-radio slot="right-icon" name="油性皮肤" />
+		</van-cell>
+		<van-cell title="中性皮肤" clickable data-name="中性皮肤" bind:click="onClick">
+			<van-radio slot="right-icon" name="中性皮肤" />
+		</van-cell>
+		<van-cell title="干性皮肤" clickable data-name="干性皮肤" bind:click="onClick">
+			<van-radio slot="right-icon" name="干性皮肤" />
+		</van-cell>
+		<van-cell title="混合性皮肤" clickable data-name="混合性皮肤" bind:click="onClick">
+			<van-radio slot="right-icon" name="混合性皮肤" />
+		</van-cell>
+	</van-cell-group>
 </van-radio-group>
-<van-button icon="add-o" type="primary" bind:click="uploadImage">点击上传图片</van-button>
-<van-button icon="goods-collect-o" type="primary" bind:click="share">点击分享好物</van-button>
+<view class="padding bg-white">
+	<view bindtouchstart="containerTap">
+		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="uploadImage" bindtouchstart="containerTap">
+    <text class="cuIcon-roundadd"></text>
+    点击上传图片</button>
+	</view>
+	<view bindtouchstart="containerTap">
+		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="share" bindtouchstart="containerTap">
+    <text class="cuIcon-like"></text>
+    点击分享好物</button>
+	</view>
+</view>

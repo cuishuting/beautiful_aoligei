@@ -1,6 +1,9 @@
 <!--miniprogram/packageD/pages/GD_share_eye_cream/GD_share_eye_cream.wxml-->
 <!--packageD/pages/GD_share_emulsion/GD_share_emulsion.wxml-->
-<text>眼霜</text>
+<view class="ripple" style="{{rippleStyle}}"></view>
+<view class="flex align-center justify-center bg-white padding">
+	<text class="text-xl text-pink">分享一款好用的眼霜</text>
+</view>
 <van-field
     label="名称"
     placeholder="请输入眼霜名称（不超过15字）"
@@ -16,7 +19,7 @@
     bind:change="get_price"
 />
 <van-radio-group value="{{ eye_problem }}" bind:change="onChange">
-  <van-cell-group>
+  <van-cell-group title="请选择眼霜针对的眼部问题">
     <van-cell title="针对黑眼圈" clickable data-name="针对黑眼圈" bind:click="onClick">
       <van-radio slot="right-icon" name="针对黑眼圈" />
     </van-cell>
@@ -28,5 +31,15 @@
     </van-cell>
   </van-cell-group>
 </van-radio-group>
-<van-button icon="add-o" type="primary" bind:click="uploadImage">点击上传图片</van-button>
-<van-button icon="goods-collect-o" type="primary" bind:click="share">点击分享好物</van-button>
+<view class="padding bg-white">
+	<view bindtouchstart="containerTap">
+		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="uploadImage" bindtouchstart="containerTap">
+    <text class="cuIcon-roundadd"></text>
+    点击上传图片</button>
+	</view>
+	<view bindtouchstart="containerTap">
+		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="share" bindtouchstart="containerTap">
+    <text class="cuIcon-like"></text>
+    点击分享好物</button>
+	</view>
+</view>

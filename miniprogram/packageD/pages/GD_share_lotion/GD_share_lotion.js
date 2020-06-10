@@ -10,6 +10,16 @@ Page({
     skin_type: '油性皮肤', //皮肤的种类
     img_URL: '', //上传的图片的云存储地址
   },
+  containerTap: function (res) {
+    var x = res.touches[0].pageX;
+    var y = res.touches[0].pageY + 85;
+    this.setData({
+      rippleStyle: ''
+    });
+    this.setData({
+      rippleStyle: 'top:' + y + 'px;left:' + x + 'px;-webkit-animation: ripple 0.4s linear;animation:ripple 0.4s linear;'
+    });
+  },
   onChange(event) {
     this.setData({
       skin_type: event.detail,

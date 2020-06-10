@@ -7,7 +7,16 @@ Page({
   data: {
 
   },
-
+  containerTap: function (res) {
+    var x = res.touches[0].pageX;
+    var y = res.touches[0].pageY + 85;
+    this.setData({
+      rippleStyle: ''
+    });
+    this.setData({
+      rippleStyle: 'top:' + y + 'px;left:' + x + 'px;-webkit-animation: ripple 0.4s linear;animation:ripple 0.4s linear;'
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -63,27 +72,27 @@ Page({
   onShareAppMessage: function () {
 
   },
-  goToEmulsion: function() {
+  goToEmulsion: function () {
     wx.navigateTo({
       url: '../../../packageD/pages/GD_share_emulsion/GD_share_emulsion',
     })
   },
-  goToEyeCream: function() {
+  goToEyeCream: function () {
     wx.navigateTo({
       url: '../../../packageD/pages/GD_share_eye_cream/GD_share_eye_cream',
     })
   },
-  goToEssence: function() {
+  goToEssence: function () {
     wx.navigateTo({
       url: '../../../packageD/pages/GD_share_essence/GD_share_essence',
     })
   },
-  goToFacialFoam: function() {
+  goToFacialFoam: function () {
     wx.navigateTo({
       url: '../../../packageD/pages/GD_share_facial_foam/GD_share_facial_foam',
     })
   },
-  goToLotion: function() {
+  goToLotion: function () {
     wx.navigateTo({
       url: '../../../packageD/pages/GD_share_lotion/GD_share_lotion',
     })

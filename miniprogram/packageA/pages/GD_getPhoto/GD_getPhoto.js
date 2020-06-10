@@ -9,7 +9,17 @@ Page({
     takePhotoOrNot:true,
     gettingPhoto: true,
     base64_photo: "",
-    TestReport: true,
+    TestReport: true
+  },
+  containerTap: function (res) {
+    var x = res.touches[0].pageX;
+    var y = res.touches[0].pageY + 85;
+    this.setData({
+      rippleStyle: ''
+    });
+    this.setData({
+      rippleStyle: 'top:' + y + 'px;left:' + x + 'px;-webkit-animation: ripple 0.4s linear;animation:ripple 0.4s linear;'
+    });
   },
   shareGoods: function() {
     wx.navigateTo({
@@ -93,7 +103,6 @@ Page({
         else {
           console.log("图片尺寸大于2m");
         }
-        
       }
     });
   },

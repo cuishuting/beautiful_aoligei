@@ -10,6 +10,16 @@ Page({
     eye_problem: '针对黑眼圈', //眼霜对应的功效
     img_URL: '', //上传的图片的云存储地址
   },
+  containerTap: function (res) {
+    var x = res.touches[0].pageX;
+    var y = res.touches[0].pageY + 85;
+    this.setData({
+      rippleStyle: ''
+    });
+    this.setData({
+      rippleStyle: 'top:' + y + 'px;left:' + x + 'px;-webkit-animation: ripple 0.4s linear;animation:ripple 0.4s linear;'
+    });
+  },
   onChange(event) {
     this.setData({
       eye_problem: event.detail,

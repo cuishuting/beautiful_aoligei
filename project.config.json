@@ -22,7 +22,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"appid": "wx90678c39a5a9e98b",
@@ -113,6 +113,69 @@
 					"id": -1,
 					"name": "packageA/pages/GD_shareGoods/GD_shareGoods",
 					"pathName": "packageA/pages/GD_shareGoods/GD_shareGoods",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/GD_index/GD_index",
+					"pathName": "pages/GD_index/GD_index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageD/pages/GD_share_essence/GD_share_essence",
+					"pathName": "packageD/pages/GD_share_essence/GD_share_essence",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageD/pages/GD_share_emulsion/GD_share_emulsion",
+					"pathName": "packageD/pages/GD_share_emulsion/GD_share_emulsion",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageD/pages/GD_share_essence/GD_share_essence",
+					"pathName": "packageD/pages/GD_share_essence/GD_share_essence",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageD/pages/GD_share_eye_cream/GD_share_eye_cream",
+					"pathName": "packageD/pages/GD_share_eye_cream/GD_share_eye_cream",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageD/pages/GD_share_facial_foam/GD_share_facial_foam",
+					"pathName": "packageD/pages/GD_share_facial_foam/GD_share_facial_foam",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageD/pages/GD_share_lotion/GD_share_lotion",
+					"pathName": "packageD/pages/GD_share_lotion/GD_share_lotion",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/GD_Report/GD_Report",
+					"pathName": "packageA/pages/GD_Report/GD_Report",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "packageA/pages/GD_getPhoto/GD_getPhoto",
+					"pathName": "packageA/pages/GD_getPhoto/GD_getPhoto",
 					"scene": null
 				}
 			]
