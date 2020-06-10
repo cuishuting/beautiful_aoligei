@@ -1,6 +1,23 @@
 <!--miniprogram/packageA/pages/GD_shareGoods/GD_shareGoods.wxml-->
-<text bindtap="goToEmulsion">我要推荐乳液</text>
-<text bindtap="goToEssence">我要推荐精华</text>
-<text bindtap="goToEyeCream">我要推荐眼霜</text>
-<text bindtap="goToFacialFoam">我要推荐洗面奶</text>
-<text bindtap="goToLotion">我要推荐爽肤水</text>
+<view class="ripple" style="{{rippleStyle}}"></view>
+<view class="padding bg-white">
+	<view class="flex align-center justify-center">
+		<image src="cloud://girls-diary-lcexw.6769-girls-diary-lcexw-1302183289/项目素材图/default-pic.png" class="pic" mode="aspectFit"></image>
+		<text class="text-xl text-pink">今天推荐些什么呢？</text>
+	</view>
+	<view bindtouchstart="containerTap">
+		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="goToEmulsion" bindtouchstart="containerTap">我要推荐乳液</button>
+	</view>
+	<view bindtouchstart="containerTap">
+		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="goToEssence" bindtouchstart="containerTap">我要推荐精华</button>
+	</view>
+	<view bindtouchstart="containerTap">
+		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="goToEyeCream" bindtouchstart="containerTap">我要推荐眼霜</button>
+	</view>
+	<view bindtouchstart="containerTap">
+		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="goToFacialFoam" bindtouchstart="containerTap">我要推荐洗面奶</button>
+	</view>
+	<view bindtouchstart="containerTap">
+		<button class="cu-btn block line-pink margin-tb-sm lg" bindtap="goToLotion" bindtouchstart="containerTap">我要推荐爽肤水</button>
+	</view>
+</view>

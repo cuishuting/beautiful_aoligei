@@ -25,6 +25,16 @@ Page({
     skin_2_confidence: 0, //2号肤质的可靠性（0-1之间取值）
     skin_3_confidence: 0 //3号肤质的可靠性（0-1之间取值）  
   },
+  containerTap: function (res) {
+    var x = res.touches[0].pageX;
+    var y = res.touches[0].pageY + 85;
+    this.setData({
+      rippleStyle: ''
+    });
+    this.setData({
+      rippleStyle: 'top:' + y + 'px;left:' + x + 'px;-webkit-animation: ripple 0.4s linear;animation:ripple 0.4s linear;'
+    });
+  },
   jumptorecommend: function() {
     wx.navigateTo({
       url: '../../../packageC/pages/GD_recommend/GD_recommend',

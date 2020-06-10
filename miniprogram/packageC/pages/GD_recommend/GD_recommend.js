@@ -5,17 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    active:0,
     TabCur: 0,
-    list0: [
-      {
-        name:'nifre',
-        cost:200,
-        picture:'https://img.yzcdn.cn/vant/ipad.jpeg',
-        desc:'1343',
-        up:10,
-        down:1
-      }
-    ],
+    list0: [],
     list1: [],
     list2:[],
     list3:[],
@@ -29,6 +21,16 @@ Page({
     eye_problem_list: [], //眼部问题的列表
     show_pic: true, //用于证明是否存在眼部问题
   }, 
+  jumpToPhoto: function() {
+    wx.navigateTo({
+      url: '../../../packageA/pages/GD_getPhoto/GD_getPhoto',
+    })
+  },
+  jumpToShare: function() {
+    wx.navigateTo({
+      url: '../../../packageA/pages/GD_shareGoods/GD_shareGoods',
+    })
+  },
   tabSelect(e) {
     this.setData({
       TabCur: e.currentTarget.dataset.id,
