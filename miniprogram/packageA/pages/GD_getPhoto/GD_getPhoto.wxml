@@ -1,4 +1,8 @@
 <!--pages/GD_getPhoto/GD_getPhoto.wxml-->
+<van-notice-bar
+  text="{{ text }}"
+  left-icon="//img.yzcdn.cn/public_files/2017/8/10/6af5b7168eed548100d9041f07b7c616.png"
+/>
 <view class="ripple" style="{{rippleStyle}}"></view>
 <view class="bg-white text-center">
 	<view class="text-pink text-xl padding">针对皮肤问题，定制美丽管理</view>

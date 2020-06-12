@@ -9,7 +9,8 @@ Page({
     takePhotoOrNot:true,
     gettingPhoto: true,
     base64_photo: "",
-    TestReport: true
+    TestReport: true,
+    text: "上传图片获取数据可能需要一定时间欧~如果长时间未响应，请重新上传~~"
   },
   containerTap: function (res) {
     var x = res.touches[0].pageX;
