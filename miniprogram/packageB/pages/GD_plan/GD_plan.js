@@ -8,6 +8,8 @@ Page({
     day_text: "",
     TabCur: '',
     day_todo_list: [],
+    day_edittext:"",
+    day_index:0,
     //月计划数据
     cal_addtext:'',
     cal_index: 0,
@@ -238,6 +240,36 @@ Page({
     this.setData({
       day_todo_list: list
     });
+  },
+
+  editItem: function (e) {
+    //获取列表中要删除项的下标
+    var that=this;
+    var index = e.target.dataset.index;
+    that.setData({
+      day_index:index,
+      day_edittext:that.data.day_todo_list[index].txt
+    })
+    that.showModal(e);
+  },
+
+  day_backText:function(e){
+    var that = this
+    let context = e.detail.value.day_edit_text
+    var arr = that.data.day_todo_list;
+    var i = that.data.day_index
+          var id = arr[i].id
+          var playStatus = "day_todo_list[" + i + "].txt";
+          that.setData({
+            [playStatus]: context,
+            day_edittext: context
+          })
+          console.log(that.data.day_todo_list[i].txt)
+      db.collection('Day_todo').doc(id).update({
+        data: {
+          context: context
+        }
+      });
   },
 
   tabSelect(e) {

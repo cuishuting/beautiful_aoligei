@@ -59,9 +59,18 @@ view{
 }
 .inner.del{
   background-color: #e64340;
-  width: 180rpx;text-align: center;
+  width: 180rpx;
+  text-align: center;
   z-index: 4;
   right: 0;
+  color: #fff
+}
+.inner.edit{
+  background-color: #5173e6;
+  width: 180rpx;
+  text-align: center;
+  z-index: 4;
+  right: 180rpx;
   color: #fff
 }
 .item-icon{
