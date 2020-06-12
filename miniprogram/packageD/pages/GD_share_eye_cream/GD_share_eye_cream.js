@@ -95,6 +95,8 @@ Page({
         name: cur_name,
         price: cur_price,
         eye_problem: cur_eye_problem,
+        up: 0,
+        down: 0
       },
       success: res => {
         wx.showToast({

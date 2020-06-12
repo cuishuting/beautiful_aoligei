@@ -84,6 +84,8 @@ Page({
         name: cur_name,
         price: cur_price,
         skintype: cur_skintype,
+        up: 0,
+        down: 0
       },
       success: res => {
         wx.showToast({

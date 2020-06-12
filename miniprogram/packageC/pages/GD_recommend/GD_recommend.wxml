@@ -18,14 +18,14 @@
 </scroll-view>
 <van-card wx:for="{{list0}}" wx:key="index" wx:if="{{TabCur==0}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}" tag="{{skin_type_str}}">
 	<view slot="footer">
-		<van-button size="small" bind:click="up">点赞{{item.up}}</van-button>
-		<van-button size="small" bind:click="down">点踩{{item.down}}</van-button>
+		<van-button size="mini" bind:click="up" data-list="{{0}}" data-id="{{item.id}}" data-up_click="{{item.up_click}}" data-up="{{item.up}}" data-curindex="{{index}}">点赞{{item.up}}</van-button>
+		<van-button size="mini" bind:click="down" data-list="{{0}}" data-id="{{item.id}}" data-down_click="{{item.down_click}}" data-down="{{item.down}}" data-curindex="{{index}}">点踩{{item.down}}</van-button>
 	</view>
 </van-card>
 <van-card wx:for="{{list1}}" wx:key="index" wx:if="{{TabCur==1}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}" tag="{{item.eye_problem}}">
 	<view slot="footer">
-		<van-button size="small" bind:click="up">点赞{{item.up}}</van-button>
-		<van-button size="small" bind:click="down">点踩{{item.down}}</van-button>
+		<van-button size="mini" bind:click="up" data-list="{{1}}" data-id="{{item.id}}" data-up_click="{{item.up_click}}" data-up="{{item.up}}" data-curindex="{{index}}">点赞{{item.up}}</van-button>
+		<van-button size="mini" bind:click="down" data-list="{{1}}" data-id="{{item.id}}" data-down_click="{{item.down_click}}" data-down="{{item.down}}" data-curindex="{{index}}">点踩{{item.down}}</van-button>
 	</view>
 </van-card>
 <view hidden="{{show_pic}}" class="out_pic">
@@ -33,20 +33,20 @@
 </view>
 <van-card wx:for="{{list2}}" wx:key="index" wx:if="{{TabCur==2}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}" tag="{{skin_type_str}}">
 	<view slot="footer">
-		<van-button size="small" bind:click="up">点赞{{item.up}}</van-button>
-		<van-button size="small" bind:click="down">点踩{{item.down}}</van-button>
+		<van-button size="mini" bind:click="up" data-list="{{2}}" data-id="{{item.id}}" data-up_click="{{item.up_click}}" data-up="{{item.up}}" data-curindex="{{index}}">点赞{{item.up}}</van-button>
+		<van-button size="mini" bind:click="down" data-list="{{2}}" data-id="{{item.id}}" data-down_click="{{item.down_click}}" data-down="{{item.down}}" data-curindex="{{index}}">点踩{{item.down}}</van-button>
 	</view>
 </van-card>
 <van-card wx:for="{{list3}}" wx:key="index" wx:if="{{TabCur==3}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}" tag="{{skin_type_str}}">
 	<view slot="footer">
-		<van-button size="small" bind:click="up">点赞{{item.up}}</van-button>
-		<van-button size="small" bind:click="down">点踩{{item.down}}</van-button>
+		<van-button size="mini" bind:click="up" data-list="{{3}}" data-id="{{item.id}}" data-up_click="{{item.up_click}}" data-up="{{item.up}}" data-curindex="{{index}}">点赞{{item.up}}</van-button>
+		<van-button size="mini" bind:click="down" data-list="{{3}}" data-id="{{item.id}}" data-down_click="{{item.down_click}}" data-down="{{item.down}}" data-curindex="{{index}}">点踩{{item.down}}</van-button>
 	</view>
 </van-card>
 <van-card wx:for="{{list4}}" wx:key="index" wx:if="{{TabCur==4}}" price="{{item.cost}}" desc="{{item.desc}}" title="{{item.name}}" thumb="{{item.picture}}" tag="{{skin_type_str}}">
 	<view slot="footer">
-		<van-button size="small" bind:click="up">点赞{{item.up}}</van-button>
-		<van-button size="small" bind:click="down">点踩{{item.down}}</van-button>
+		<van-button size="mini" bind:click="up" data-list="{{4}}" data-id="{{item.id}}" data-up_click="{{item.up_click}}" data-up="{{item.up}}" data-curindex="{{index}}">点赞{{item.up}}</van-button>
+		<van-button size="mini" bind:click="down" data-list="{{4}}" data-id="{{item.id}}" data-down_click="{{item.down_click}}" data-down="{{item.down}}" data-curindex="{{index}}">点踩{{item.down}}</van-button>
 	</view>
 </van-card>
 
