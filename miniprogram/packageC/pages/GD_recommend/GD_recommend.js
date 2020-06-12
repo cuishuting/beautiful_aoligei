@@ -41,6 +41,9 @@ Page({
     if (that.data.list0.length == 0) {
       that.facialFoam();
     }
+    that.setData({
+      show_pic: true,
+    })
   },
   getEye_cream: function () {
     var that = this;
@@ -53,18 +56,27 @@ Page({
     if (that.data.list2.length == 0) {
       that.Essence();
     }
+    that.setData({
+      show_pic: true,
+    })
   },
   getLotion: function () {
     var that = this;
     if (that.data.list3.length == 0) {
       that.Lotion();
     }
+    that.setData({
+      show_pic: true,
+    })
   },
   getEmulsion: function () {
     var that = this;
     if (that.data.list4.length == 0) {
       that.Emulsion();
     }
+    that.setData({
+      show_pic: true,
+    })
   },
   up: function (e) {
     var that = this;
@@ -492,9 +504,7 @@ Page({
   facialFoam: function () {
     console.log("facialFoam被触发啦");
     var that = this;
-    that.setData({
-      show_pic: true,
-    })
+    console.log(that.data.show_pic);
     var facial_foam = 0; //洗面奶的数量
     const db = wx.cloud.database();
     db.collection('facial_foam').where({
@@ -546,6 +556,7 @@ Page({
         show_pic: false,
       })
     }
+    console.log(that.data.show_pic);
     that.setData({
       list1: []
     })
@@ -625,6 +636,7 @@ Page({
     that.setData({
       show_pic: true,
     })
+    console.log(that.data.show_pic);
     var essence = 0; //精华的数量
     const db = wx.cloud.database();
     db.collection('essence').where({
@@ -674,6 +686,7 @@ Page({
     that.setData({
       show_pic: true,
     })
+    console.log(that.data.show_pic);
     console.log("emulsion被触发啦");
     var emulsion = 0; //乳液的数量
     const db = wx.cloud.database();
@@ -720,6 +733,7 @@ Page({
     that.setData({
       show_pic: true,
     })
+    console.log(that.data.show_pic);
     console.log("Lotion被触发啦");
     var lotion = 0; //乳液的数量
     const db = wx.cloud.database();
